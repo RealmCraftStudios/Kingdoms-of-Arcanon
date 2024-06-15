@@ -3,25 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kingdoms of Arcanon Card Analytics</title>
+    <title>Kingdoms of Arcanon - Card Analytics</title>
     <style>
-        /* Your existing CSS styles here */
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: Arial, sans-serif;
+        }
+        .splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #8B0000; /* Dark blood red */
+            color: #000; /* Black text */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 1000;
+            opacity: 1;
+            transition: opacity 1s ease-out, background-color 1s ease-out, color 1s ease-out;
+            cursor: pointer;
+        }
+        .splash-screen.fade-to-black {
+            background-color: #000; /* Black */
+        }
+        .splash-screen.fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
+        .main-content {
+            display: none;
+            background-color: #fff; /* White background */
+            color: #000; /* Black text */
+            width: 100%;
+            height: 100%;
+            padding-top: 20px; /* Space for title */
+            box-sizing: border-box;
+        }
+        .main-content.show {
+            display: block;
+        }
+        .main-content iframe {
+            width: 100%;
+            height: calc(100% - 60px); /* Adjust iframe height as needed */
+            border: none;
+        }
+        .page-title {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .page-subtitle {
+            text-align: center;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        .page-subtitle a {
+            color: #8B0000; /* Dark blood red */
+            text-decoration: none;
+        }
+        .page-subtitle a:hover {
+            text-decoration: underline;
+        }
+        .page-link {
+            font-size: 22px;
+            text-decoration: none;
+            color: #000; /* Black text */
+            margin-bottom: 10px;
+        }
+        .page-link:hover {
+            text-decoration: underline;
+        }
+        h1 a {
+            color: #000; /* Black text */
+            text-decoration: none;
+        }
+        h1 a:hover {
+            text-decoration: underline;
+        }
     </style>
-    <meta name="description" content="Explore Kingdoms of Arcanon, a Digital TCG in development by RealmCraft Studios, a Tabletop Game Development and Design company.">
-    <meta name="keywords" content="Kingdoms of Arcanon, TCG, digital trading card game, RealmCraft Studios, tabletop game development, Ontario Canada, GitHub, Google Sheets, Awesome Table">
-    <meta property="og:title" content="Kingdoms of Arcanon Card Analytics">
-    <meta property="og:description" content="Explore Kingdoms of Arcanon, a Digital TCG in development by RealmCraft Studios, a Tabletop Game Development and Design company.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://kingdomsofarcanon.com">
-    <meta property="og:image" content="https://example.com/og-image.jpg">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Kingdoms of Arcanon Card Analytics">
-    <meta name="twitter:description" content="Explore Kingdoms of Arcanon, a Digital TCG in development by RealmCraft Studios, a Tabletop Game Development and Design company.">
-    <meta name="twitter:image" content="https://example.com/twitter-image.jpg">
 </head>
 <body>
     <div class="splash-screen" id="splash-screen">
-        <h1 style="font-size: 36px;"><a href="#" onclick="showSplash()">Kingdoms of Arcanon Card Analytics</a></h1>
+        <h1 style="font-size: 36px;"><a href="#" onclick="showSplash()">Kingdoms of Arcanon - Card Analytics</a></h1>
         <a href="#" class="page-link" data-page="character-cards">Character Cards</a>
         <a href="#" class="page-link" data-page="attack-cards">Attack Cards</a>
         <a href="#" class="page-link" data-page="defense-cards">Defense Cards</a>
@@ -55,7 +124,7 @@
                     // Generate iframe HTML
                     const iframeHTML = `
                         <div class="page-title">
-                            <a href="#" onclick="showSplash()">Kingdoms of Arcanon Card Analytics</a>
+                            <a href="#" onclick="showSplash()">Kingdoms of Arcanon - Card Analytics</a>
                         </div>
                         <div class="page-subtitle">
                             <a href="#" onclick="showSplash()">${getPageTitle(pageId)}</a>
