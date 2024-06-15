@@ -19,10 +19,11 @@
             width: 100%;
             height: 100%;
             background-color: #8B0000; /* Dark blood red */
-            color: #000; /* Black text */
+            color: #fff; /* White text */
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-direction: column;
             z-index: 1000;
             opacity: 1;
             transition: opacity 1s ease-out, background-color 1s ease-out, color 1s ease-out;
@@ -30,7 +31,6 @@
         }
         .splash-screen.fade-to-black {
             background-color: #000; /* Black */
-            color: #fff; /* White text */
         }
         .splash-screen.fade-out {
             opacity: 0;
@@ -42,6 +42,7 @@
             color: #000; /* Black text */
             width: 100%;
             height: 100%;
+            padding-top: 20px; /* Space for title */
         }
         .main-content.show {
             display: block;
@@ -51,25 +52,92 @@
             height: calc(100% - 60px); /* Adjust iframe height as needed */
             border: none;
         }
+        .page-title {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .page-title a {
+            color: #8B0000; /* Dark blood red */
+            text-decoration: none;
+        }
+        .page-title a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
     <div class="splash-screen" id="splash-screen">
         <h1>Kingdoms of Arcanon - Card Analytics</h1>
+        <a href="#" class="page-link" data-page="character-cards">Character Cards</a>
+        <a href="#" class="page-link" data-page="attack-cards">Attack Cards</a>
+        <a href="#" class="page-link" data-page="defense-cards">Defense Cards</a>
+        <a href="#" class="page-link" data-page="item-cards">Item Cards</a>
+        <a href="#" class="page-link" data-page="resource-cards">Resource Cards</a>
+        <a href="#" class="page-link" data-page="ruler-cards">Ruler Cards</a>
     </div>
     <div class="main-content" id="main-content">
-        <iframe referrerpolicy="no-referrer-when-downgrade" src="https://view-awesome-table.com/-O-OFL1yzOLGGhVqTk1o/view"></iframe>
+        <!-- Placeholder for iframe content, replaced dynamically -->
     </div>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const splashScreen = document.getElementById('splash-screen');
+            const mainContent = document.getElementById('main-content');
+            const pageLinks = document.querySelectorAll('.page-link');
+
             splashScreen.addEventListener('click', function() {
                 this.classList.add('fade-to-black');
                 setTimeout(() => {
                     this.classList.add('fade-out');
-                    document.getElementById('main-content').classList.add('show');
+                    mainContent.classList.add('show');
                 }, 1000); // Match the transition duration
             });
+
+            pageLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const pageId = this.getAttribute('data-page');
+                    const iframeSrc = getIframeSrc(pageId); // Replace with function to get iframe src
+
+                    // Generate iframe HTML
+                    const iframeHTML = `
+                        <div class="page-title">
+                            <a href="#" onclick="showSplash()">Kingdoms of Arcanon - Card Analytics</a>
+                        </div>
+                        <iframe referrerpolicy="no-referrer-when-downgrade" src="${iframeSrc}" style="width: 100%; height: calc(100% - 60px); border: none;"></iframe>
+                    `;
+
+                    // Update main content with iframe
+                    mainContent.innerHTML = iframeHTML;
+                });
+            });
+
+            // Function to get iframe source based on pageId
+            function getIframeSrc(pageId) {
+                switch (pageId) {
+                    case 'character-cards':
+                        return 'https://view-awesome-table.com/-O-OFL1yzOLGGhVqTk1o/view'; // Character Cards iframe source
+                    case 'attack-cards':
+                        return 'https://view-awesome-table.com/-O-PGvgWgJfx-zOcdmA_/view'; // Attack Cards iframe source
+                    case 'defense-cards':
+                        return 'https://view-awesome-table.com/-O-PIusdM-t86olQQqd8/view'; // Defense Cards iframe source
+                    case 'item-cards':
+                        return 'https://view-awesome-table.com/-O-PJSieXs8I9ONS-urv/view'; // Item Cards iframe source
+                    case 'resource-cards':
+                        return 'https://view-awesome-table.com/-O-PJzqdjZD1FBaTXJYv/view'; // Resource Cards iframe source
+                    case 'ruler-cards':
+                        return 'https://view-awesome-table.com/-O-PKVs90OR2R32a3ygo/view'; // Ruler Cards iframe source
+                    default:
+                        return ''; // Handle default case if needed
+                }
+            }
+
+            // Function to show splash screen again
+            function showSplash() {
+                mainContent.classList.remove('show');
+                splashScreen.classList.remove('fade-out');
+                splashScreen.classList.remove('fade-to-black');
+            }
         });
     </script>
 </body>
