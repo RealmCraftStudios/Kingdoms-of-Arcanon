@@ -10,7 +10,6 @@
             padding: 0;
             width: 100%;
             height: 100%;
-            overflow: hidden;
             font-family: Arial, sans-serif;
         }
         .splash-screen {
@@ -18,7 +17,7 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%; /* Adjusted height */
+            height: 100%;
             background-color: #ccc; /* Light grey background */
             color: #000; /* Black text */
             display: flex;
@@ -41,23 +40,25 @@
             display: none;
             background-color: #fff; /* White background */
             color: #000; /* Black text */
+            width: 100%;
+            height: 100%;
         }
         .main-content.show {
             display: block;
         }
         .main-content iframe {
             width: 100%;
-            height: 600px; /* Adjust iframe height as needed */
+            height: calc(100% - 60px); /* Adjust iframe height as needed */
             border: none;
         }
     </style>
 </head>
 <body>
     <div class="splash-screen" id="splash-screen">
-        <h1>Kingdoms of Arcanon - Character Card Analytics</h1>
+        <h1>Kingdoms of Arcanon - Card Analytics</h1>
     </div>
     <div class="main-content" id="main-content">
-        <iframe referrerpolicy="no-referrer-when-downgrade" height="600px" width="100%" style="border:none;" src="https://view-awesome-table.com/-O-OFL1yzOLGGhVqTk1o/view"></iframe>
+        <iframe referrerpolicy="no-referrer-when-downgrade" src="https://view-awesome-table.com/-O-OFL1yzOLGGhVqTk1o/view"></iframe>
     </div>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
