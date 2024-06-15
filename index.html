@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kingdoms of Arcanon Card Analytics </title>
+    <title>Kingdoms of Arcanon - Card Analytics</title>
     <style>
         body, html {
             margin: 0;
@@ -21,8 +21,8 @@
             background-color: #444; /* Grungy grey texture */
             color: #fff; /* White text */
             display: flex;
-            justify-content: left;
-            align-items: 100px;
+            justify-content: center;
+            align-items: center;
             flex-direction: column;
             z-index: 1000;
             opacity: 1;
@@ -54,12 +54,12 @@
             border: none;
         }
         .page-title {
-            text-align: left;
+            text-align: center;
             font-size: 24px;
             margin-bottom: 10px;
         }
         .page-subtitle {
-            text-align: left;
+            text-align: center;
             font-size: 20px;
             margin-bottom: 20px;
         }
@@ -91,7 +91,7 @@
 </head>
 <body>
     <div class="splash-screen" id="splash-screen">
-        <h1 style="font-size: 36px;"><a href="#" onclick="location.reload();">Kingdoms of Arcanon Card Analytics</a></h1>
+        <h1 style="font-size: 36px;"><a href="#" onclick="location.reload();">Kingdoms of Arcanon - Card Analytics</a></h1>
         <a href="#" class="page-link" data-page="character-cards">Character Cards</a>
         <a href="#" class="page-link" data-page="attack-cards">Attack Cards</a>
         <a href="#" class="page-link" data-page="defense-cards">Defense Cards</a>
@@ -125,7 +125,7 @@
                     // Generate iframe HTML
                     const iframeHTML = `
                         <div class="page-title">
-                            <a href="#" onclick="location.reload();">Kingdoms of Arcanon Card Analytics</a>
+                            <a href="#" onclick="location.reload();">Kingdoms of Arcanon - Card Analytics</a>
                         </div>
                         <div class="page-subtitle">
                             <a href="#" onclick="showSplash()">${getPageTitle(pageId)}</a>
