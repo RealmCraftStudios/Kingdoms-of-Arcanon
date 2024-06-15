@@ -27,6 +27,7 @@
             z-index: 1000;
             opacity: 1;
             transition: opacity 2s ease-out;
+            cursor: pointer;
         }
         .splash-screen.fade-out {
             opacity: 0;
@@ -45,7 +46,17 @@
     </div>
     <div class="main-content" id="main-content">
         <!-- Your main content goes here -->
-        <iframe referrerpolicy="no-referrer-when-downgrade" height="1200px" width="100%" style="border:none;" src="https://view-awesome-table.com/-O-OFL1yzOLGGhVqTk1o/view"></iframe>
+        <iframe referrerpolicy="no-referrer-when-downgrade" height="600px" width="100%" style="border:none;" src="https://view-awesome-table.com/-O-OFL1yzOLGGhVqTk1o/view"></iframe>
     </div>
     <script>
-        document.add
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById('splash-screen').addEventListener('click', function() {
+                this.classList.add('fade-out');
+                setTimeout(function() {
+                    document.getElementById('main-content').classList.add('show');
+                }, 2000); // Match the transition duration
+            });
+        });
+    </script>
+</body>
+</html>
