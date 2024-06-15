@@ -45,67 +45,7 @@
         <h1>Kingdoms of Arcanon - Card Analytics</h1>
     </div>
     <div class="main-content" id="main-content">
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kingdoms of Arcanon - Card Analytics</title>
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            font-family: Arial, sans-serif;
-        }
-        .splash-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #333;
-            color: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            opacity: 1;
-            transition: opacity 2s ease-out;
-            cursor: pointer;
-        }
-        .splash-screen.fade-out {
-            opacity: 0;
-        }
-        .main-content {
-            display: none;
-        }
-        .main-content.show {
-            display: block;
-        }
-    </style>
-</head>
-<body>
-    <div class="splash-screen" id="splash-screen">
-        <h1>Kingdoms of Arcanon - Card Analytics</h1>
-    </div>
-    <div class="main-content" id="main-content">
         <iframe referrerpolicy="no-referrer-when-downgrade" height="1200px" width="100%" style="border:none;" src="https://view-awesome-table.com/-O-OFL1yzOLGGhVqTk1o/view"></iframe>
-    </div>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            document.getElementById('splash-screen').addEventListener('click', function() {
-                this.classList.add('fade-out');
-                setTimeout(function() {
-                    document.getElementById('main-content').classList.add('show');
-                }, 2000); // Match the transition duration
-            });
-        });
-    </script>
-</body>
-</html>        <p>Main content goes here...</p>
     </div>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
