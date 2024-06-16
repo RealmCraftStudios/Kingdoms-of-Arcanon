@@ -18,7 +18,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: #444; /* Grungy grey texture */
+            background-color: #fff; /* White background */
             color: #000; /* Black text */
             display: flex;
             justify-content: center;
@@ -26,7 +26,7 @@
             flex-direction: column;
             z-index: 1000;
             opacity: 1;
-            transition: opacity 1.125s ease-out, background-color 1.125s ease-out, color 1.125s ease-out; /* 25% faster */
+            transition: opacity 1s ease-out, background-color 1s ease-out, color 1s ease-out; /* 35% faster */
             cursor: pointer;
             text-align: left;
             padding-left: 300px; /* Nudge text to the right */
@@ -53,7 +53,7 @@
         }
         .main-content iframe {
             width: 100%;
-            height: calc(100% - 60px); /* Adjust iframe height as needed */
+            height: calc(100% - 80px); /* Adjust iframe height as needed */
             border: none;
         }
         .page-title {
@@ -69,6 +69,7 @@
         .page-subtitle a {
             color: #8B0000; /* Dark blood red */
             text-decoration: none;
+            margin: 0 10px; /* Spacing between links */
         }
         .page-subtitle a:hover {
             text-decoration: underline;
@@ -116,7 +117,7 @@
                 setTimeout(() => {
                     this.classList.add('fade-out');
                     mainContent.classList.add('show');
-                }, 1125); // Match the transition duration
+                }, 900); // Match the transition duration
             });
 
             pageLinks.forEach(link => {
@@ -131,13 +132,19 @@
                             <a href="#" onclick="location.reload();">Kingdoms of Arcanon - Card Analytics</a>
                         </div>
                         <div class="page-subtitle">
-                            <a href="#" onclick="showSplash()">${getPageTitle(pageId)}</a>
+                            <a href="#" data-page="character-cards" class="page-link">Character Cards</a>
+                            <a href="#" data-page="attack-cards" class="page-link">Attack Cards</a>
+                            <a href="#" data-page="defense-cards" class="page-link">Defense Cards</a>
+                            <a href="#" data-page="item-cards" class="page-link">Item Cards</a>
+                            <a href="#" data-page="resource-cards" class="page-link">Resource Cards</a>
+                            <a href="#" data-page="ruler-cards" class="page-link">Ruler Cards</a>
                         </div>
-                        <iframe referrerpolicy="no-referrer-when-downgrade" src="${iframeSrc}" style="width: 100%; height: calc(100% - 60px); border: none;"></iframe>
+                        <iframe referrerpolicy="no-referrer-when-downgrade" src="${iframeSrc}" style="width: 100%; height: calc(100% - 80px); border: none;"></iframe>
                     `;
 
                     // Update main content with iframe
                     mainContent.innerHTML = iframeHTML;
+                    attachLinkListeners(); // Attach listeners to new links
                 });
             });
 
@@ -161,31 +168,36 @@
                 }
             }
 
-            // Function to get page title based on pageId
-            function getPageTitle(pageId) {
-                switch (pageId) {
-                    case 'character-cards':
-                        return 'Character Cards';
-                    case 'attack-cards':
-                        return 'Attack Cards';
-                    case 'defense-cards':
-                        return 'Defense Cards';
-                    case 'item-cards':
-                        return 'Item Cards';
-                    case 'resource-cards':
-                        return 'Resource Cards';
-                    case 'ruler-cards':
-                        return 'Ruler Cards';
-                    default:
-                        return ''; // Handle default case if needed
-                }
-            }
+            // Function to attach link listeners to new links
+            function attachLinkListeners() {
+                const newPageLinks = document.querySelectorAll('.page-subtitle .page-link');
+                newPageLinks.forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const pageId = this.getAttribute('data-page');
+                        const iframeSrc = getIframeSrc(pageId); // Replace with function to get iframe src
 
-            // Function to show splash screen again
-            function showSplash() {
-                mainContent.classList.remove('show');
-                splashScreen.classList.remove('fade-out');
-                splashScreen.classList.remove('fade-to-black');
+                        // Generate iframe HTML
+                        const iframeHTML = `
+                            <div class="page-title">
+                                <a href="#" onclick="location.reload();">Kingdoms of Arcanon - Card Analytics</a>
+                            </div>
+                            <div class="page-subtitle">
+                                <a href="#" data-page="character-cards" class="page-link">Character Cards</a>
+                                <a href="#" data-page="attack-cards" class="page-link">Attack Cards</a>
+                                <a href="#" data-page="defense-cards" class="page-link">Defense Cards</a>
+                                <a href="#" data-page="item-cards" class="page-link">Item Cards</a>
+                                <a href="#" data-page="resource-cards" class="page-link">Resource Cards</a>
+                                <a href="#" data-page="ruler-cards" class="page-link">Ruler Cards</a>
+                            </div>
+                            <iframe referrerpolicy="no-referrer-when-downgrade" src="${iframeSrc}" style="width: 100%; height: calc(100% - 80px); border: none;"></iframe>
+                        `;
+
+                        // Update main content with iframe
+                        mainContent.innerHTML = iframeHTML;
+                        attachLinkListeners(); // Attach listeners to new links
+                    });
+                });
             }
         });
     </script>
