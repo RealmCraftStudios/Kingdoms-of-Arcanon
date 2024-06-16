@@ -1,5 +1,8 @@
-GOOGLE SHEETS
+To integrate the code for filtering and displaying data dynamically from a CSV file into your existing HTML structure, you'll need to update the `<script>` section in your `index.html` file. Here’s how you can combine them:
 
+### Updated `index.html`:
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -186,10 +189,84 @@ GOOGLE SHEETS
             // Function to show splash screen again
             function showSplash() {
                 mainContent.classList.remove('show');
-                splashScreen.classList.remove('fade-out');
-                splashScreen.classList.remove('fade-to-black');
-            }
+                splashScreenclassList.remove('fade-out');
+splashScreen.classList.remove('fade-to-black');
+}
+});
+</script>
+PHP
+<!-- External JavaScript for filtering and displaying CSV data -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Load CSV data into a table
+        function loadCSV(csvFile) {
+            $.get(csvFile, function(data) {
+                const rows = data.split("\n");
+                let headers = rows[0].split(",");
+                let tableHtml = '<table border="1">';
+
+                // Table header
+                tableHtml += '<thead><tr>';
+                headers.forEach(header => {
+                    tableHtml += `<th>${header}</th>`;
+                });
+                tableHtml += '</tr></thead>';
+
+                // Table body
+                tableHtml += '<tbody>';
+                for (let i = 1; i < rows.length; i++) {
+                    const cells = rows[i].split(",");
+                    tableHtml += '<tr>';
+                    cells.forEach(cell => {
+                        tableHtml += `<td>${cell}</td>`;
+                    });
+                    tableHtml += '</tr>';
+                }
+                tableHtml += '</tbody>';
+
+                tableHtml += '</table>';
+
+                // Display table in main content
+                document.getElementById('main-content').innerHTML = tableHtml;
+            });
+        }
+
+        // Event listener for page links
+        $('.page-link').on('click', function(e) {
+            e.preventDefault();
+            const pageId = $(this).data('page');
+            const csvFile = getCsvFile(pageId); // Replace with function to get CSV file
+
+            // Load CSV data into main content
+            loadCSV(csvFile);
+            mainContent.classList.add('show');
+            splashScreen.classList.add('fade-out');
+            setTimeout(() => {
+                splashScreen.classList.add('fade-to-black');
+            }, 1125); // Match the transition duration
         });
-    </script>
+
+        // Function to get CSV file based on pageId
+        function getCsvFile(pageId) {
+            switch (pageId) {
+                case 'character-cards':
+                    return 'character_cards.csv';
+                case 'attack-cards':
+                    return 'attack_cards.csv';
+                case 'defense-cards':
+                    return 'defense_cards.csv';
+                case 'item-cards':
+                    return 'item_cards.csv';
+                case 'resource-cards':
+                    return 'resource_cards.csv';
+                case 'ruler-cards':
+                    return 'ruler_cards.csv';
+                default:
+                    return ''; // Handle default case if needed
+            }
+        }
+    });
+</script>
 </body>
 </html>
