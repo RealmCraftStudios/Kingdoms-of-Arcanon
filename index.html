@@ -18,7 +18,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: #fff; /* White background */
+            background-color: #444; /* Grungy grey texture */
             color: #000; /* Black text */
             display: flex;
             justify-content: center;
@@ -26,7 +26,7 @@
             flex-direction: column;
             z-index: 1000;
             opacity: 1;
-            transition: opacity 1s ease-out, background-color 1s ease-out, color 1s ease-out; /* 35% faster */
+            transition: opacity 1.125s ease-out, background-color 1.125s ease-out, color 1.125s ease-out; /* 25% faster */
             cursor: pointer;
             text-align: left;
             padding-left: 300px; /* Nudge text to the right */
@@ -53,7 +53,7 @@
         }
         .main-content iframe {
             width: 100%;
-            height: calc(100% - 80px); /* Adjust iframe height as needed */
+            height: calc(100% - 60px); /* Adjust iframe height as needed */
             border: none;
         }
         .page-title {
@@ -69,7 +69,6 @@
         .page-subtitle a {
             color: #8B0000; /* Dark blood red */
             text-decoration: none;
-            margin: 0 10px; /* Spacing between links */
         }
         .page-subtitle a:hover {
             text-decoration: underline;
@@ -117,7 +116,7 @@
                 setTimeout(() => {
                     this.classList.add('fade-out');
                     mainContent.classList.add('show');
-                }, 900); // Match the transition duration
+                }, 1125); // Match the transition duration
             });
 
             pageLinks.forEach(link => {
@@ -132,19 +131,13 @@
                             <a href="#" onclick="location.reload();">Kingdoms of Arcanon - Card Analytics</a>
                         </div>
                         <div class="page-subtitle">
-                            <a href="#" data-page="character-cards" class="page-link">Character Cards</a>
-                            <a href="#" data-page="attack-cards" class="page-link">Attack Cards</a>
-                            <a href="#" data-page="defense-cards" class="page-link">Defense Cards</a>
-                            <a href="#" data-page="item-cards" class="page-link">Item Cards</a>
-                            <a href="#" data-page="resource-cards" class="page-link">Resource Cards</a>
-                            <a href="#" data-page="ruler-cards" class="page-link">Ruler Cards</a>
+                            <a href="#" onclick="showSplash()">${getPageTitle(pageId)}</a>
                         </div>
-                        <iframe referrerpolicy="no-referrer-when-downgrade" src="${iframeSrc}" style="width: 100%; height: calc(100% - 80px); border: none;"></iframe>
+                        <iframe referrerpolicy="no-referrer-when-downgrade" src="${iframeSrc}" style="width: 100%; height: calc(100% - 60px); border: none;"></iframe>
                     `;
 
                     // Update main content with iframe
                     mainContent.innerHTML = iframeHTML;
-                    attachLinkListeners(); // Attach listeners to new links
                 });
             });
 
@@ -168,38 +161,99 @@
                 }
             }
 
-            // Function to attach link listeners to new links
-            function attachLinkListeners() {
-                const newPageLinks = document.querySelectorAll('.page-subtitle .page-link');
-                newPageLinks.forEach(link => {
-                    link.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        const pageId = this.getAttribute('data-page');
-                        const iframeSrc = getIframeSrc(pageId); // Replace with function to get iframe src
-
-                        // Generate iframe HTML
-                        const iframeHTML = `
-                            <div class="page-title">
-                                <a href="#" onclick="location.reload();">Kingdoms of Arcanon - Card Analytics</a>
-                            </div>
-                            <div class="page-subtitle">
-                                <a href="#" data-page="character-cards" class="page-link">Character Cards</a>
-                                <a href="#" data-page="attack-cards" class="page-link">Attack Cards</a>
-                                <a href="#" data-page="defense-cards" class="page-link">Defense Cards</a>
-                                <a href="#" data-page="item-cards" class="page-link">Item Cards</a>
-                                <a href="#" data-page="resource-cards" class="page-link">Resource Cards</a>
-                                <a href="#" data-page="ruler-cards" class="page-link">Ruler Cards</a>
-                            </div>
-                            <iframe referrerpolicy="no-referrer-when-downgrade" src="${iframeSrc}" style="width: 100%; height: calc(100% - 80px); border: none;"></iframe>
-                        `;
-
-                        // Update main content with iframe
-                        mainContent.innerHTML = iframeHTML;
-                        attachLinkListeners(); // Attach listeners to new links
-                    });
-                });
+            // Function to get page title based on pageId
+            function getPageTitle(pageId) {
+                switch (pageId) {
+                    case 'character-cards':
+                        return 'Character Cards';
+                    case 'attack-cards':
+                        return 'Attack Cards';
+                    case 'defense-cards':
+                        return 'Defense Cards';
+                    case 'item-cards':
+                        return 'Item Cards';
+                    case 'resource-cards':
+                        return 'Resource Cards';
+                    case 'ruler-cards':
+                        return 'Ruler Cards';
+                    default:
+                        return ''; // Handle default case if needed
+                }
             }
+
+            // Function to show splash screen again
+            function showSplash() {
+                mainContent.classList.remove('show');
+                splashScreen<!-- External JavaScript for filtering and displaying CSV data -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Load CSV data into a table
+        function loadCSV(csvFile) {
+            $.get(csvFile, function(data) {
+                const rows = data.split("\n");
+                let headers = rows[0].split(",");
+                let tableHtml = '<table border="1">';
+
+                // Table header
+                tableHtml += '<thead><tr>';
+                headers.forEach(header => {
+                    tableHtml += `<th>${header}</th>`;
+                });
+                tableHtml += '</tr></thead>';
+
+                // Table body
+                tableHtml += '<tbody>';
+                for (let i = 1; i < rows.length; i++) {
+                    const cells = rows[i].split(",");
+                    tableHtml += '<tr>';
+                    cells.forEach(cell => {
+                        tableHtml += `<td>${cell}</td>`;
+                    });
+                    tableHtml += '</tr>';
+                }
+                tableHtml += '</tbody>';
+
+                tableHtml += '</table>';
+
+                // Display table in main content
+                document.getElementById('main-content').innerHTML = tableHtml;
+            });
+        }
+
+        // Event listener for page links
+        $('.page-link').on('click', function(e) {
+            e.preventDefault();
+            const pageId = $(this).data('page');
+            const csvFile = getCsvFile(pageId); // Replace with function to get CSV file
+
+            // Load CSV data into main content
+            loadCSV(csvFile);
+            mainContent.classList.add('show');
+            splashScreen.classList.add('fade-out');
+            setTimeout(() => {
+                splashScreen.classList.add('fade-to-black');
+            }, 1125); // Match the transition duration
         });
-    </script>
-</body>
-</html>
+
+        // Function to get CSV file based on pageId
+        function getCsvFile(pageId) {
+            switch (pageId) {
+                case 'character-cards':
+                    return 'character_cards.csv';
+                case 'attack-cards':
+                    return 'attack_cards.csv';
+                case 'defense-cards':
+                    return 'defense_cards.csv';
+                case 'item-cards':
+                    return 'item_cards.csv';
+                case 'resource-cards':
+                    return 'resource_cards.csv';
+                case 'ruler-cards':
+                    return 'ruler_cards.csv';
+                default:
+                    return ''; // Handle default case if needed
+            }
+        }
+    });
+</script>
