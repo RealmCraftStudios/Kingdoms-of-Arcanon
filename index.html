@@ -21,16 +21,14 @@
             background-color: #fff; /* White background */
             color: #000; /* Black text */
             display: flex;
-            justify-content: left;
-            align-items: left;
+            justify-content: center;
+            align-items: center;
             flex-direction: column;
             z-index: 1000;
             opacity: 1;
             transition: opacity 1s ease-out, background-color 1s ease-out, color 1s ease-out; /* 35% faster */
             cursor: pointer;
-            text-align: left;
-            padding-left: 100px; /* Nudge text to the right */
-            box-sizing: border-box;
+            text-align: center;
         }
         .splash-screen.fade-to-black {
             background-color: #000; /* Black */
@@ -95,13 +93,14 @@
 </head>
 <body>
     <div class="splash-screen" id="splash-screen">
-        <h1 style="font-size: 36px;"><a href="#" onclick="location.reload();">Kingdoms of Arcanon Card Analytics</a></h1>
-        <a href="#" class="page-link" data-page="character-cards">Character Cards</a>
-        <a href="#" class="page-link" data-page="attack-cards">Attack Cards</a>
-        <a href="#" class="page-link" data-page="defense-cards">Defense Cards</a>
-        <a href="#" class="page-link" data-page="item-cards">Item Cards</a>
-        <a href="#" class="page-link" data-page="resource-cards">Resource Cards</a>
-        <a href="#" class="page-link" data-page="ruler-cards">Ruler Cards</a>
+        <h1 style="font-size: 36px;"><a href="#" onclick="location.reload();">Kingdoms of Arcanon Card Analytics</a
+</h1>
+        <a href="#" class="page-link" data-page="Character Cards">Character Cards</a>
+        <a href="#" class="page-link" data-page="Attack Cards">Attack Cards</a>
+        <a href="#" class="page-link" data-page="Defense Cards">Defense Cards</a>
+        <a href="#" class="page-link" data-page="Item Cards">Item Cards</a>
+        <a href="#" class="page-link" data-page="Resource Cards">Resource Cards</a>
+        <a href="#" class="page-link" data-page="Ruler Cards">Ruler Cards</a>
     </div>
     <div class="main-content" id="main-content">
         <!-- Placeholder for iframe content, replaced dynamically -->
@@ -132,12 +131,12 @@
                             <a href="#" onclick="location.reload();">Kingdoms of Arcanon Card Analytics</a>
                         </div>
                         <div class="page-subtitle">
-                            <a href="#" data-page="character-cards" class="page-link">Character Cards</a>
-                            <a href="#" data-page="attack-cards" class="page-link">Attack Cards</a>
-                            <a href="#" data-page="defense-cards" class="page-link">Defense Cards</a>
-                            <a href="#" data-page="item-cards" class="page-link">Item Cards</a>
-                            <a href="#" data-page="resource-cards" class="page-link">Resource Cards</a>
-                            <a href="#" data-page="ruler-cards" class="page-link">Ruler Cards</a>
+                            <a href="#" data-page="Character Cards" class="page-link">Character Cards</a>
+                            <a href="#" data-page="Attack Cards" class="page-link">Attack Cards</a>
+                            <a href="#" data-page="Defense Cards" class="page-link">Defense Cards</a>
+                            <a href="#" data-page="Item Cards" class="page-link">Item Cards</a>
+                            <a href="#" data-page="Resource Cards" class="page-link">Resource Cards</a>
+                            <a href="#" data-page="Ruler Cards" class="page-link">Ruler Cards</a>
                         </div>
                         <iframe referrerpolicy="no-referrer-when-downgrade" src="${iframeSrc}" style="width: 100%; height: calc(100% - 80px); border: none;"></iframe>
                     `;
@@ -151,18 +150,18 @@
             // Function to get iframe source based on pageId
             function getIframeSrc(pageId) {
                 switch (pageId) {
-                    case 'character-cards':
-                        return 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS2HMrAvELJcPvaJ8-YvDGi5RhH2TdqKt29PiEuPH1c_ZpSeyP87dFPhU1r_s2I87WzphAlkfyuP79x/pubhtml?gid=0&single=true'; // Character Cards iframe source
-                    case 'attack-cards':
-                        return 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS2HMrAvELJcPvaJ8-YvDGi5RhH2TdqKt29PiEuPH1c_ZpSeyP87dFPhU1r_s2I87WzphAlkfyuP79x/pubhtml?gid=589246038&single=true'; // Attack Cards iframe source
-                    case 'defense-cards':
-                        return 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS2HMrAvELJcPvaJ8-YvDGi5RhH2TdqKt29PiEuPH1c_ZpSeyP87dFPhU1r_s2I87WzphAlkfyuP79x/pubhtml?gid=126896547&single=true'; // Defense Cards iframe source
-                    case 'item-cards':
-                        return 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS2HMrAvELJcPvaJ8-YvDGi5RhH2TdqKt29PiEuPH1c_ZpSeyP87dFPhU1r_s2I87WzphAlkfyuP79x/pubhtml?gid=400758552&single=true'; // Item Cards iframe source
-                    case 'resource-cards':
-                        return 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS2HMrAvELJcPvaJ8-YvDGi5RhH2TdqKt29PiEuPH1c_ZpSeyP87dFPhU1r_s2I87WzphAlkfyuP79x/pubhtml?gid=1512881124&single=true'; // Resource Cards iframe source
-                    case 'ruler-cards':
-                        return 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS2HMrAvELJcPvaJ8-YvDGi5RhH2TdqKt29PiEuPH1c_ZpSeyP87dFPhU1r_s2I87WzphAlkfyuP79x/pubhtml?gid=473596735&single=true'; // Ruler Cards iframe source
+                    case 'Character Cards':
+                        return 'https://raw.githubusercontent.com/RealmCraftStudios/Kingdoms-of-Arcanon/main/FilterWhole.html?sheetName=Character%20Cards';
+                    case 'Attack Cards':
+                        return 'https://raw.githubusercontent.com/RealmCraft Studios/Kingdoms-of-Arcanon/main/FilterWhole.html?sheetName=Attack%20Cards';
+                    case 'Defense Cards':
+                        return 'https://raw.githubusercontent.com/RealmCraft Studios/Kingdoms-of-Arcanon/main/FilterWhole.html?sheetName=Defense%20Cards';
+                    case 'Item Cards':
+                        return 'https://raw.githubusercontent.com/RealmCraft Studios/Kingdoms-of-Arcanon/main/FilterWhole.html?sheetName=Item%20Cards';
+                    case 'Resource Cards':
+                        return 'https://raw.githubusercontent.com/RealmCraft Studios/Kingdoms-of-Arcanon/main/FilterWhole.html?sheetName=Resource%20Cards';
+                    case 'Ruler Cards':
+                        return 'https://raw.githubusercontent.com/RealmCraft Studios/Kingdoms-of-Arcanon/main/FilterWhole.html?sheetName=Ruler%20Cards';
                     default:
                         return ''; // Handle default case if needed
                 }
@@ -171,4 +170,35 @@
             // Function to attach link listeners to new links
             function attachLinkListeners() {
                 const newPageLinks = document.querySelectorAll('.page-subtitle .page-link');
-                newPageLinks.forEach
+                newPageLinks.forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const pageId = this.getAttribute('data-page');
+                        const iframeSrc = getIframeSrc(pageId); // Replace with function to get iframe src
+
+                        // Generate iframe HTML
+                        const iframeHTML = `
+                            <div class="page-title">
+                                <a href="#" onclick="location.reload();">Kingdoms of Arcanon Card Analytics</a>
+                            </div>
+                            <div class="page-subtitle">
+                                <a href="#" data-page="Character Cards" class="page-link">Character Cards</a>
+                                <a href="#" data-page="Attack Cards" class="page-link">Attack Cards</a>
+                                <a href="#" data-page="Defense Cards" class="page-link">Defense Cards</a>
+                                <a href="#" data-page="Item Cards" class="page-link">Item Cards</a>
+                                <a href="#" data-page="Resource Cards" class="page-link">Resource Cards</a>
+                                <a href="#" data-page="Ruler Cards" class="page-link">Ruler Cards</a>
+                            </div>
+                            <iframe referrerpolicy="no-referrer-when-downgrade" src="${iframeSrc}" style="width: 100%; height: calc(100% - 80px); border: none;"></iframe>
+                        `;
+
+                        // Update main content with iframe
+                        mainContent.innerHTML = iframeHTML;
+                        attachLinkListeners(); // Attach listeners to new links
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>
