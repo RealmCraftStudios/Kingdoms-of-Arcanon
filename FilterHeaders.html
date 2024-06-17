@@ -1,39 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Header Filters - Kingdoms of Arcanon - Card Analytics</title>
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            font-family: Arial, sans-serif;
-        }
-        .page-title {
-            text-align: center;
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
-        .iframe-container {
-            width: 100%;
-            height: 100%;
-        }
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Filter Headers</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      font-family: Arial, sans-serif;
+      background-color: #939799;
+      color: #000;
+    }
+    .search-bar {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .search-bar input {
+      width: 80%;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    .results {
+      padding: 20px;
+      background-color: #fff;
+      color: #000;
+      overflow-y: auto;
+      height: calc(100% - 100px);
+    }
+  </style>
+  <script>
+    async function fetchData() {
+      const response = await fetch('https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec?page=FilterHeaders');
+      const data = await response.json();
+      return data;
+    }
+
+    function renderData(data) {
+      const resultsContainer = document.getElementById('results');
+      resultsContainer.innerHTML = ''; // Clear previous results
+
+      data.forEach(row => {
+        const rowElement = document.createElement('div');
+        rowElement.textContent = row.join(' | ');
+        resultsContainer.appendChild(rowElement);
+      });
+    }
+
+    function filterData(searchValue, data, headerIndex) {
+      return data.filter(row => row[headerIndex].toLowerCase().includes(searchValue.toLowerCase()));
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const searchInput = document.getElementById('search-input');
+      const headerIndex = 0; // Change to the appropriate header index
+
+      fetchData().then(data => {
+        searchInput.addEventListener('input', function() {
+          const searchValue = this.value;
+          const filteredData = filterData(searchValue, data, headerIndex);
+          renderData(filteredData);
+        });
+
+        // Initial render with all data
+        renderData(data);
+      });
+    });
+  </script>
 </head>
 <body>
-    <div class="page-title">
-        <a href="#" onclick="location.reload();">Kingdoms of Arcanon - Card Analytics</a> - Header Filters
-    </div>
-    <div class="iframe-container">
-        <iframe src="<?= getSheetUrl(''); ?>headerFilters" referrerpolicy="no-referrer-when-downgrade"></iframe>
-    </div>
+  <div class="search-bar">
+    <input type="text" id="search-input" placeholder="Search...">
+  </div>
+  <div class="results" id="results"></div>
 </body>
 </html>
