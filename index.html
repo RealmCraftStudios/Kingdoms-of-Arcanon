@@ -1,80 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kingdoms of Arcanion Card Analytics</title>
-  <style>
-    body, html {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      height: 100%;
-      font-family: Arial, sans-serif;
-      background-color: #939799;
-      color: #000;
-    }
-    .search-bar {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .search-bar input {
-      width: 80%;
-      padding: 10px;
-      font-size: 16px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-    }
-    .results {
-      padding: 20px;
-      background-color: #fff;
-      color: #000;
-      overflow-y: auto;
-      height: calc(100% - 100px);
-    }
-  </style>
-  <script>
-    async function fetchData() {
-      const response = await fetch('https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec');
-      const data = await response.json();
-      return data;
-    }
-
-    function renderData(data) {
-      const resultsContainer = document.getElementById('results');
-      resultsContainer.innerHTML = ''; // Clear previous results
-
-      data.forEach(row => {
-        const rowElement = document.createElement('div');
-        rowElement.textContent = row.join(' | ');
-        resultsContainer.appendChild(rowElement);
-      });
-    }
-
-    function filterData(searchValue, data) {
-      return data.filter(row => row.join(' ').toLowerCase().includes(searchValue.toLowerCase()));
-    }
-
-    document.addEventListener('DOMContentLoaded', function() {
-      const searchInput = document.getElementById('search-input');
-
-      fetchData().then(data => {
-        searchInput.addEventListener('input', function() {
-          const searchValue = this.value;
-          const filteredData = filterData(searchValue, data);
-          renderData(filteredData);
-        });
-
-        // Initial render with all data
-        renderData(data);
-      });
-    });
-  </script>
+  <title>Google Apps Script Integration</title>
 </head>
 <body>
-  <div class="search-bar">
-    <input type="text" id="search-input" placeholder="Search...">
-  </div>
-  <div class="results" id="results"></div>
+  <h1>Google Apps Script Integration</h1>
+  
+  <button onclick="filterData('whole')">Filter Whole Data</button>
+  <button onclick="filterData('headers')">Filter Headers Only</button>
+  
+  <table id="data-table">
+    <!-- Table content will be filled by JavaScript -->
+  </table>
+  
+  <script>
+    function filterData(filterType) {
+      google.script.run.withSuccessHandler(displayData).getDataFromSheet('<YOUR_SHEET_URL>', filterType);
+    }
+    
+    function displayData(data) {
+      var table = document.getElementById('data-table');
+      table.innerHTML = ''; // Clear previous table content
+      
+      data.forEach(function(row) {
+        var tr = document.createElement('tr');
+        row.forEach(function(cellData) {
+          var td = document.createElement('td');
+          td.textContent = cellData;
+          tr.appendChild(td);
+        });
+        table.appendChild(tr);
+      });
+    }
+  </script>
 </body>
 </html>
