@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Header Filters - Kingdoms of Arcanon - Card Analytics</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: Arial, sans-serif;
+        }
+        .page-title {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .iframe-container {
+            width: 100%;
+            height: 100%;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-title">
+        <a href="#" onclick="location.reload();">Kingdoms of Arcanon - Card Analytics</a> - Header Filters
+    </div>
+    <div class="iframe-container">
+        <iframe src="<?= getSheetUrl(''); ?>headerFilters" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+</body>
+</html>
