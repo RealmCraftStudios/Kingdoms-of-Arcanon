@@ -1,49 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Google Apps Script Integration</title>
+  <base target="_top">
+  <title>Kingdoms of Arcanon Game Data</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f5f5f5;
+    }
+    h1 {
+      color: #333;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    li {
+      margin: 10px 0;
+    }
+    a {
+      text-decoration: none;
+      color: #1a73e8;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
-  <h1>Google Apps Script Integration</h1>
-  
-  <a href="CharacterCards.html">Character Cards</a><br>
-  <a href="AttackCards.html">Attack Cards</a><br>
-  <a href="DefenseCards.html">Defense Cards</a><br>
-  <a href="ItemCards.html">Item Cards</a><br>
-  <a href="ResourceCards.html">Resource Cards</a><br>
-  <a href="RulerCards.html">Ruler Cards</a><br>
-  <a href="Rulebook.html">Rulebook</a><br>
-  <a href="WorldHistory.html">World History</a><br>
-  
-  <table id="data-table">
-    <!-- Table content will be filled by JavaScript -->
-  </table>
-  
-  <script>
-    document.getElementById('searchInput').addEventListener('keypress', function(e) {
-      if (e.key === 'Enter') {
-        filterData('search', this.value);
-      }
-    });
-
-    function filterData(filterType, searchQuery = '') {
-      google.script.run.withSuccessHandler(displayData).getDataFromSheet('YOUR_SHEET_URL', filterType, searchQuery);
-    }
-    
-    function displayData(data) {
-      var table = document.getElementById('data-table');
-      table.innerHTML = ''; // Clear previous table content
-      
-      data.forEach(function(row) {
-        var tr = document.createElement('tr');
-        row.forEach(function(cellData) {
-          var td = document.createElement('td');
-          td.textContent = cellData;
-          tr.appendChild(td);
-        });
-        table.appendChild(tr);
-      });
-    }
-  </script>
+  <h1>Kingdoms of Arcanon Game Data</h1>
+  <ul>
+    <li><a href="CharacterCards.html">Character Cards</a></li>
+    <li><a href="AttackCards.html">Attack Cards</a></li>
+    <li><a href="DefenseCards.html">Defense Cards</a></li>
+    <li><a href="ItemCards.html">Item Cards</a></li>
+    <li><a href="ResourceCards.html">Resource Cards</a></li>
+    <li><a href="RulerCards.html">Ruler Cards</a></li>
+    <li><a href="Rulebook.html">Rulebook</a></li>
+    <li><a href="WorldHistory.html">World History</a></li>
+  </ul>
 </body>
 </html>
