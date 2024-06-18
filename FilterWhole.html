@@ -2,31 +2,10 @@
 <html>
 <head>
   <base target="_top">
+  <title>Filter Whole</title>
 </head>
 <body>
-  <h1>Filtered Whole Data</h1>
-  
-  <table id="data-table">
-    <!-- Table content will be filled by JavaScript -->
-  </table>
-  
-  <script>
-    google.script.run.withSuccessHandler(displayData).getDataFromSheet('<YOUR_SHEET_URL>', 'whole');
-    
-    function displayData(data) {
-      var table = document.getElementById('data-table');
-      table.innerHTML = ''; // Clear previous table content
-      
-      data.forEach(function(row) {
-        var tr = document.createElement('tr');
-        row.forEach(function(cellData) {
-          var td = document.createElement('td');
-          td.textContent = cellData;
-          tr.appendChild(td);
-        });
-        table.appendChild(tr);
-      });
-    }
-  </script>
+  <h1>Filter Whole</h1>
+  <p>This page does not have any specific content to display.</p>
 </body>
 </html>
