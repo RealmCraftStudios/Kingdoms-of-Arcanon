@@ -6,16 +6,28 @@
 <body>
   <h1>Google Apps Script Integration</h1>
   
-  <button onclick="filterData('whole')">Filter Whole Data</button>
-  <button onclick="filterData('headers')">Filter Headers Only</button>
+  <a href="CharacterCards.html">Character Cards</a><br>
+  <a href="AttackCards.html">Attack Cards</a><br>
+  <a href="DefenseCards.html">Defense Cards</a><br>
+  <a href="ItemCards.html">Item Cards</a><br>
+  <a href="ResourceCards.html">Resource Cards</a><br>
+  <a href="RulerCards.html">Ruler Cards</a><br>
+  <a href="Rulebook.html">Rulebook</a><br>
+  <a href="WorldHistory.html">World History</a><br>
   
   <table id="data-table">
     <!-- Table content will be filled by JavaScript -->
   </table>
   
   <script>
-    function filterData(filterType) {
-      google.script.run.withSuccessHandler(displayData).getDataFromSheet('<YOUR_SHEET_URL>', filterType);
+    document.getElementById('searchInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        filterData('search', this.value);
+      }
+    });
+
+    function filterData(filterType, searchQuery = '') {
+      google.script.run.withSuccessHandler(displayData).getDataFromSheet('YOUR_SHEET_URL', filterType, searchQuery);
     }
     
     function displayData(data) {
