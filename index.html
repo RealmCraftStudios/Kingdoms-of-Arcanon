@@ -70,10 +70,10 @@
             text-decoration: none;
             color: #000; /* Black text */
             margin-bottom: 10px;
-            display: inline-block;
+            display: none;
             padding: 5px 10px;
             border-radius: 5px;
-            background-color: #f2f2f2; /* Light grey background */
+            background-color: none;
         }
         .page-link:hover {
             text-decoration: underline;
@@ -196,6 +196,7 @@
                             <a href="#" class="page-link" data-page="rulebook">Rulebook</a>
                             <a href="#" class="page-link" data-page="world-history">World History</a>
                         </div>
+                        <iframe referrerpolicy="no-referrer-when-downgrade" src="${iframeSrc}" style="width: 100%; height: calc(100% - 80px); border: none;"></iframe>
                     `;
 
                     // Update main content with iframe
