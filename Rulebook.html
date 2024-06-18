@@ -1,1 +1,20 @@
-
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <title>Rulebook</title>
+</head>
+<body>
+  <h1>Rulebook</h1>
+  <div id="docContent"></div>
+  
+  <script>
+    function displayDocContent() {
+      google.script.run.withSuccessHandler(function(data) {
+        document.getElementById('docContent').innerHTML = data;
+      }).getRulebookContent();
+    }
+    window.onload = displayDocContent;
+  </script>
+</body>
+</html>
