@@ -175,38 +175,40 @@
             }
         }
 
-        // Function to attach link listeners to new links
-        function attachLinkListeners() {
-            const newPageLinks = document.querySelectorAll('.page-subtitle .page-link');
-            newPageLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const pageId = this.getAttribute('data-page');
-                    const iframeSrc = getIframeSrc(pageId); // Replace with function to get iframe src
+          // Function to attach link listeners to new links
+            function attachLinkListeners() {
+                const newPageLinks = document.querySelectorAll('.page-subtitle .page-link');
+                newPageLinks.forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const pageId = this.getAttribute('data-page');
+                        const iframeSrc = getIframeSrc(pageId); // Replace with function to get iframe src
 
-                    // Generate iframe HTML
-                    const iframeHTML = `
-                        <div class="page-title">
-                            <a href="#" onclick="location.reload();">Kingdoms of Arcanon Game Data</a>
-                        </div>
-                        <div class="page-subtitle">
-                            <a href="#" class="page-link" data-page="character-cards">Character Cards</a>
-                            <a href="#" class="page-link" data-page="attack-cards">Attack Cards</a>
-                            <a href="#" class="page-link" data-page="defense-cards">Defense Cards</a>
-                            <a href="#" class="page-link" data-page="item-cards">Item Cards</a>
-                            <a href="#" class="page-link" data-page="resource-cards">Resource Cards</a>
-                            <a href="#" class="page-link" data-page="ruler-cards">Ruler Cards</a>
-                            <a href="#" class="page-link" data-page="rulebook">Rulebook</a>
-                            <a href="#" class="page-link" data-page="world-history">World History</a>
-                        </div>
-                        <iframe referrerpolicy="no-referrer-when-downgrade" src="${iframeSrc}" style="width: 100%; height: calc(100% - 80px); border: none;"></iframe>
-                    `;
+                        // Generate iframe HTML
+                        const iframeHTML = `
+                            <div class="page-title">
+                                <a href="#" onclick="location.reload();">Kingdoms of Arcanon Game Data</a>
+                            </div>
+                            <div class="page-subtitle">
+                                <a href="#" class="page-link" data-page="character-cards">Character Cards</a>
+                                <a href="#" class="page-link" data-page="attack-cards">Attack Cards</a>
+                                <a href="#" class="page-link" data-page="defense-cards">Defense Cards</a>
+                                <a href="#" class="page-link" data-page="item-cards">Item Cards</a>
+                                <a href="#" class="page-link" data-page="resource-cards">Resource Cards</a>
+                                <a href="#" class="page-link" data-page="ruler-cards">Ruler Cards</a>
+                                <a href="#" class="page-link" data-page="rulebook">Rulebook</a>
+                                <a href="#" class="page-link" data-page="world-history">World History</a>
+                            </div>
+                            <iframe referrerpolicy="no-referrer-when-downgrade" src="${iframeSrc}" style="width: 100%; height: calc(100% - 80px); border: none;"></iframe>
+                        `;
 
-                    // Update main content with iframe
-                    mainContent.innerHTML = iframeHTML;
-                    attachLinkListeners(); // Attach listeners to new links
+                        // Update main content with iframe
+                        mainContent.innerHTML = iframeHTML;
+                        attachLinkListeners(); // Attach listeners to new links
+                    });
                 });
-            });
-        }
-    });
-</script>
+            }
+        });
+    </script>
+</body>
+</html>
