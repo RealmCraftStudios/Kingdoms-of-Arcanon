@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -11,17 +11,11 @@
             width: 100%;
             height: 100%;
             font-family: Arial, sans-serif;
-            background: url('/convert/eqlws3b/artboard-1.html') no-repeat center center fixed;
-                <title>artboard-1</title>
-                </head>
-                <body style="text-align: center;">
-                <h1>/convert/eqlws3b/artboard-1.html</h1>
-                <div>
-            <img usemap="#artboard-1" src="/convert/eqlws3b/artboard-1.png" style="border: 0;" alt="Image map" />
-            <map id="artboard-1" name="artboard-1">
-            <area href="/convert/eqlws3b/artboard-1.html" shape="rect" coords="0,0,1919,1079" alt="" />
-            </map>
-            </div>    
+            background-color: #939799; /* Medium grey background */
+            background-image: url('https://raw.githubusercontent.com/RealmCraftStudios/Kingdoms-of-Arcanon/main/image.jpg'); /* Background image URL */
+            background-size: cover;
+            background-position: center;
+            color: #000; /* Black text */
         }
         .splash-screen {
             position: fixed;
@@ -29,8 +23,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(147, 151, 153, 0.8); /* Semi-transparent medium grey background */
-            color: #000; /* Black text */
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+            color: #fff; /* White text */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -41,7 +35,7 @@
             cursor: pointer;
         }
         .splash-screen.fade-to-black {
-            background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black */
+            background-color: rgba(0, 0, 0, 0.7); /* Darker background on fade */
         }
         .splash-screen.fade-out {
             opacity: 0;
@@ -49,7 +43,7 @@
         }
         .main-content {
             display: none;
-            background-color: rgba(147, 151, 153, 0.8); /* Semi-transparent medium grey background */
+            background-color: rgba(255, 255, 255, 0.9); /* Light opaque background */
             color: #000; /* Black text */
             width: 100%;
             height: 100%;
@@ -157,9 +151,7 @@
                 });
             });
 
-            // Function to get iframe source based on pageId
-            function getIframeSrc(pageId) {
-                switch (pageId) {
+            // Function to get iframe source based on
                     case 'character-cards':
                         return 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS2HMrAvELJcPvaJ8-YvDGi5RhH2TdqKt29PiEuPH1c_ZpSeyP87dFPhU1r_s2I87WzphAlkfyuP79x/pubhtml?gid=0&single=true&widget=true&headers=false'; // Character Cards iframe source
                     case 'attack-cards':
