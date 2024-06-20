@@ -91,7 +91,7 @@
             text-decoration: underline;
         }
         audio {
-            display: audio; /* Show or Hide the audio player controls */
+            margin-top: 20px; /* Margin for better positioning */
         }
     </style>
 </head>
@@ -106,14 +106,14 @@
         <a href="#" class="page-link" data-page="ruler-cards">Ruler Cards</a>
         <a href="#" class="page-link" data-page="rulebook">Rulebook</a>
         <a href="#" class="page-link" data-page="world-history">World History</a>
+        <audio id="background-music" controls autoplay loop>
+            <source src="https://raw.githubusercontent.com/RealmCraftStudios/Kingdoms-of-Arcanon/main/GreatWarArcanon.wav" type="audio/wav">
+            Your browser does not support the audio element.
+        </audio>
     </div>
     <div class="main-content" id="main-content">
         <!-- Placeholder for iframe content, replaced dynamically -->
     </div>
-    <audio id="background-music" preload="auto" loop>
-        <source src="https://raw.githubusercontent.com/RealmCraftStudios/Kingdoms-of-Arcanon/main/GreatWarArcanon.wav" type="audio/wav">
-        Your browser does not support the audio element.
-    </audio>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const splashScreen = document.getElementById('splash-screen');
@@ -121,19 +121,21 @@
             const pageLinks = document.querySelectorAll('.page-link');
             const backgroundMusic = document.getElementById('background-music');
 
+            // Lower volume by 25%
+            backgroundMusic.volume = 0.75;
+
             splashScreen.addEventListener('click', function() {
                 this.classList.add('fade-to-black');
                 setTimeout(() => {
                     this.classList.add('fade-out');
                     mainContent.classList.add('show');
-                    backgroundMusic.play(); // Play the background music when splash screen is clicked
+                    backgroundMusic.pause(); // Stop the background music when splash screen fades out
                 }, 900); // Match the transition duration
             });
 
             pageLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
-                    stopBackgroundMusic();
                     const pageId = this.getAttribute('data-page');
                     const iframeSrc = getIframeSrc(pageId);
 
