@@ -117,14 +117,14 @@
 <body>
     <div class="splash-screen" id="splash-screen">
         <h1 style="font-size: 36px;"><a href="#" onclick="location.reload();">Kingdoms of Arcanon Game Data</a></h1>
-        <a href="#" class="page-link" data-page="character-cards">Character Cards</a>
-        <a href="#" class="page-link" data-page="attack-cards">Attack Cards</a>
-        <a href="#" class="page-link" data-page="defense-cards">Defense Cards</a>
-        <a href="#" class="page-link" data-page="item-cards">Item Cards</a>
-        <a href="#" class="page-link" data-page="resource-cards">Resource Cards</a>
-        <a href="#" class="page-link" data-page="ruler-cards">Ruler Cards</a>
-        <a href="#" class="page-link" data-page="rulebook">Rulebook</a>
-        <a href="#" class="page-link" data-page="world-history">World History</a>
+        <a href="/charactercards.html" class="page-link" data-page="character-cards">Character Cards</a>
+        <a href="/attackcards.html" class="page-link" data-page="attack-cards">Attack Cards</a>
+        <a href="/defensecards.html" class="page-link" data-page="defense-cards">Defense Cards</a>
+        <a href="/itemcards.html" class="page-link" data-page="item-cards">Item Cards</a>
+        <a href="/resourcecards.html" class="page-link" data-page="resource-cards">Resource Cards</a>
+        <a href="/rulercards.html" class="page-link" data-page="ruler-cards">Ruler Cards</a>
+        <a href="/rulebook.html" class="page-link" data-page="rulebook">Rulebook</a>
+        <a href="/worldhistory.html" class="page-link" data-page="world-history">World History</a>
         <div class="audio-player">
             <audio id="audio-player" controls autoplay loop>
                 <source src="https://raw.githubusercontent.com/RealmCraftStudios/Kingdoms-of-Arcanon/main/WelcometoArcanon.wav" type="audio/wav">
@@ -136,13 +136,9 @@
             </div>
         </div>
     </div>
-    <div class="main-content" id="main-content">
-    </div>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const splashScreen = document.getElementById('splash-screen');
-            const mainContent = document.getElementById('main-content');
-            const pageLinks = document.querySelectorAll('.page-link');
             const audioPlayer = document.getElementById('audio-player');
             const nextButton = document.getElementById('nextButton');
             const prevButton = document.getElementById('prevButton');
@@ -181,76 +177,12 @@
                 audioPlayer.currentTime = 0;
             }
 
-            function loadPage(pageId) {
-                const iframeSrc = getIframeSrc(pageId);
+            splashScreen.addEventListener('click', function() {
                 splashScreen.classList.add('fade-to-black');
                 setTimeout(() => {
                     splashScreen.classList.add('fade-out');
-                    mainContent.classList.add('show');
                     stopBackgroundMusic();
-                    mainContent.innerHTML = `
-                        <div class="page-title">
-                            <a href="#" onclick="location.reload();">Kingdoms of Arcanon Game Data</a>
-                        </div>
-                        <div class="page-subtitle">
-                            <a href="#" class="page-link" data-page="character-cards">Character Cards</a>
-                            <a href="#" class="page-link" data-page="attack-cards">Attack Cards</a>
-                            <a href="#" class="page-link" data-page="defense-cards">Defense Cards</a>
-                            <a href="#" class="page-link" data-page="item-cards">Item Cards</a>
-                            <a href="#" class="page-link" data-page="resource-cards">Resource Cards</a>
-                            <a href="#" class="page-link" data-page="ruler-cards">Ruler Cards</a>
-                            <a href="#" class="page-link" data-page="rulebook">Rulebook</a>
-                            <a href="#" class="page-link" data-page="world-history">World History</a>
-                        </div>
-                        <div class="embedded-sheet">
-                            ${iframeSrc}
-                        </div>
-                    `;
-                    attachLinkListeners();
                 }, 900);
-            }
-
-            function getIframeSrc(pageId) {
-                switch (pageId) {
-                    case 'character-cards':
-                        return '<iframe src="CharacterCards.html"></iframe>';
-                    case 'attack-cards':
-                        return '<iframe src="AttackCards.html"></iframe>';
-                    case 'defense-cards':
-                        return '<iframe src="DefenseCards.html"></iframe>';
-                    case 'item-cards':
-                        return '<iframe src="ItemCards.html"></iframe>';
-                    case 'resource-cards':
-                        return '<iframe src="ResourceCards.html"></iframe>';
-                    case 'ruler-cards':
-                        return '<iframe src="RulerCards.html"></iframe>';
-                    case 'rulebook':
-                        return '<iframe src="Rulebook.html"></iframe>';
-                    case 'world-history':
-                        return '<iframe src="WorldHistory.html"></iframe>';
-                    default:
-                        return '';
-                }
-            }
-
-            function attachLinkListeners() {
-                const newPageLinks = document.querySelectorAll('.page-subtitle .page-link');
-                newPageLinks.forEach(link => {
-                    link.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        stopBackgroundMusic();
-                        const pageId = this.getAttribute('data-page');
-                        loadPage(pageId);
-                    });
-                });
-            }
-
-            pageLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const pageId = this.getAttribute('data-page');
-                    loadPage(pageId);
-                });
             });
         });
     </script>
