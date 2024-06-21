@@ -245,17 +245,13 @@
                 });
             }
 
-            const initialPageId = window.location.hash ? window.location.hash.substring(1) : 'character-cards';
-            loadPage(initialPageId);
-
-            const reloadLink = document.querySelector('.page-title a');
-            if (reloadLink) {
-                reloadLink.addEventListener('click', function(e) {
+            pageLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
                     e.preventDefault();
-                    stopBackgroundMusic();
-                    location.reload();
+                    const pageId = this.getAttribute('data-page');
+                    loadPage(pageId);
                 });
-            }
+            });
         });
     </script>
 </body>
