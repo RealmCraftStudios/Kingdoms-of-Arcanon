@@ -55,7 +55,7 @@
         }
         .main-content iframe {
             width: 100%;
-            height: calc(100% - 80px);
+            height: calc(100% - 80px); /* Adjust height as needed */
             border: none;
         }
         .page-title {
@@ -137,6 +137,22 @@
         </div>
     </div>
     <div class="main-content" id="main-content">
+        <div class="page-title">
+            <a href="#">Kingdoms of Arcanon Game Data</a>
+        </div>
+        <div class="page-subtitle">
+            <a href="#" class="page-link" data-page="charactercards">Character Cards</a>
+            <a href="#" class="page-link" data-page="attackcards">Attack Cards</a>
+            <a href="#" class="page-link" data-page="defensecards">Defense Cards</a>
+            <a href="#" class="page-link" data-page="itemcards">Item Cards</a>
+            <a href="#" class="page-link" data-page="resourcecards">Resource Cards</a>
+            <a href="#" class="page-link" data-page="rulercards">Ruler Cards</a>
+            <a href="#" class="page-link" data-page="rulebook">Rulebook</a>
+            <a href="#" class="page-link" data-page="worldhistory">World History</a>
+        </div>
+        <div class="main-content">
+            <iframe id="contentFrame" referrerpolicy="no-referrer-when-downgrade" frameborder="0"></iframe>
+        </div>
     </div>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -146,6 +162,7 @@
             const audioPlayer = document.getElementById('audio-player');
             const nextButton = document.getElementById('nextButton');
             const prevButton = document.getElementById('prevButton');
+            const contentFrame = document.getElementById('contentFrame');
 
             let currentTrackIndex = 0;
             const tracks = [
@@ -191,25 +208,7 @@
                         splashScreen.classList.add('fade-out');
                         mainContent.classList.add('show');
                         stopBackgroundMusic();
-                        mainContent.innerHTML = `
-                            <div class="page-title">
-                                <a href="#">Kingdoms of Arcanon Game Data</a>
-                            </div>
-                            <div class="page-subtitle">
-                                <a href="#" class="page-link" data-page="charactercards">Character Cards</a>
-                                <a href="#" class="page-link" data-page="attackcards">Attack Cards</a>
-                                <a href="#" class="page-link" data-page="defensecards">Defense Cards</a>
-                                <a href="#" class="page-link" data-page="itemcards">Item Cards</a>
-                                <a href="#" class="page-link" data-page="resourcecards">Resource Cards</a>
-                                <a href="#" class="page-link" data-page="rulercards">Ruler Cards</a>
-                                <a href="#" class="page-link" data-page="rulebook">Rulebook</a>
-                                <a href="#" class="page-link" data-page="worldhistory">World History</a>
-                            </div>
-                            <div class="main-content">
-                                <iframe referrerpolicy="no-referrer-when-downgrade" src="${iframeSrc}" frameborder="0"></iframe>
-                            </div>
-                        `;
-                        attachLinkListeners();
+                        contentFrame.src = iframeSrc;
                     }, 900);
                 });
             });
@@ -245,10 +244,12 @@
                     mainContent.classList.remove('show');
                     splashScreen.classList.remove('fade-to-black');
                     setTimeout(() => {
-                        mainContent.innerHTML = '';
+                        contentFrame.src = '';
                     }, 900);
                 });
             }
+
+            attachLinkListeners();
         });
     </script>
 </body>
