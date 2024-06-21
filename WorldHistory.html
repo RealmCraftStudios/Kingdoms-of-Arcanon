@@ -5,24 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>World History - Kingdoms of Arcanon Game Data</title>
     <style>
-        body, html {
+        body {
             margin: 0;
             padding: 0;
-            width: 100%;
-            height: 100%;
             font-family: Arial, sans-serif;
-            background-color: #939799;
-            color: #000;
+            background-color: #f0f0f0; /* Replace with your desired background color */
+            color: #333; /* Replace with your desired text color */
         }
-        .main-content {
-            width: 100%;
-            height: 100%;
-            box-sizing: border-box;
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
         }
         .page-title {
             text-align: center;
             font-size: 24px;
-            margin: 10px 0;
+            margin-bottom: 10px;
         }
         .page-subtitle {
             text-align: center;
@@ -30,20 +28,28 @@
             margin-bottom: 20px;
         }
         .page-link {
-            font-size: 22px;
+            font-size: 18px;
             text-decoration: none;
-            color: #000;
+            color: #000; /* Replace with your desired link color */
             margin-bottom: 10px;
             display: inline-block;
             padding: 5px 10px;
             border-radius: 5px;
-            background-color: #ddd;
+            background-color: #ddd; /* Replace with your desired link background color */
         }
         .page-link:hover {
             text-decoration: underline;
-            background-color: #bbb;
+            background-color: #bbb; /* Replace with your desired hover background color */
         }
-        iframe {
+        .iframe-container {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio (Responsive for iframe) */
+        }
+        .iframe-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             border: none;
@@ -51,12 +57,24 @@
     </style>
 </head>
 <body>
-    <div class="main-content">
+    <div class="container">
         <div class="page-title">
-            <a href="index.html" onclick="location.reload();">Kingdoms of Arcanon Game Data</a>
+            <a href="index.html">Kingdoms of Arcanon Game Data</a>
         </div>
-        <div class="page-subtitle">World History</div>
-        <iframe src="https://docs.google.com/document/d/1ORXR0OCX6BSiUKU7ygE-hK7HLs_wBklfK6O7-UH2Foc/edit?usp=sharing"></iframe>
+        <div class="page-subtitle">
+            <a href="charactercards.html" class="page-link">Character Cards</a>
+            <a href="attackcards.html" class="page-link">Attack Cards</a>
+            <a href="defensecards.html" class="page-link">Defense Cards</a>
+            <a href="itemcards.html" class="page-link">Item Cards</a>
+            <a href="resourcecards.html" class="page-link">Resource Cards</a>
+            <a href="rulercards.html" class="page-link">Ruler Cards</a>
+            <a href="rulebook.html" class="page-link">Rulebook</a>
+            <a href="worldhistory.html" class="page-link">World History</a>
+        </div>
+        <div class="iframe-container">
+            <iframe src="https://docs.google.com/spreadsheets/d/e/YOUR-SHEET-ID/pubhtml?gid=123456789&amp;single=true&amp;widget=true&amp;headers=false" frameborder="0"></iframe>
+            <!-- Replace the src URL with your actual Google Sheets URL for world history and adjust gid parameter as needed -->
+        </div>
     </div>
 </body>
 </html>
