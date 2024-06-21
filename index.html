@@ -11,11 +11,11 @@
             width: 100%;
             height: 100%;
             font-family: Arial, sans-serif;
-            background-color: #939799; /* Medium grey background */
-            background-image: url('https://raw.githubusercontent.com/RealmCraftStudios/Kingdoms-of-Arcanon/main/index.jpg'); /* Background image URL */
+            background-color: #939799;
+            background-image: url('https://raw.githubusercontent.com/RealmCraftStudios/Kingdoms-of-Arcanon/main/index.jpg');
             background-size: cover;
             background-position: center;
-            color: #000; /* Black text */
+            color: #000;
         }
         .splash-screen {
             position: fixed;
@@ -23,8 +23,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-            color: #fff; /* White text */
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -35,7 +35,7 @@
             cursor: pointer;
         }
         .splash-screen.fade-to-black {
-            background-color: rgba(0, 0, 0, 0.7); /* Darker background on fade */
+            background-color: rgba(0, 0, 0, 0.7);
         }
         .splash-screen.fade-out {
             opacity: 0;
@@ -43,11 +43,11 @@
         }
         .main-content {
             display: none;
-            background-color: rgba(255, 255, 255, 0.9); /* Light opaque background */
-            color: #000; /* Black text */
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #000;
             width: 100%;
             height: 100%;
-            padding-top: 20px; /* Space for title */
+            padding-top: 20px;
             box-sizing: border-box;
         }
         .main-content.show {
@@ -55,7 +55,7 @@
         }
         .main-content iframe {
             width: 100%;
-            height: calc(100% - 80px); /* Adjust iframe height as needed */
+            height: calc(100% - 80px);
             border: none;
         }
         .page-title {
@@ -71,27 +71,24 @@
         .page-link {
             font-size: 22px;
             text-decoration: none;
-            color: #000; /* Black text */
+            color: #000;
             margin-bottom: 10px;
             display: inline-block;
             padding: 5px 10px;
             border-radius: 5px;
-            background-color: #ddd; /* Light grey background */
+            background-color: #ddd;
         }
         .page-link:hover {
             text-decoration: underline;
-            background-color: #bbb; /* Darker grey hover background */
+            background-color: #bbb;
         }
         h1 a {
-            color: #fff; /* White text for better contrast with stroke */
+            color: #fff;
             text-decoration: none;
             cursor: pointer;
         }
         h1 a:hover {
             text-decoration: underline;
-        }
-        audio {
-            margin-top: 20px; /* Margin for better positioning */
         }
         .audio-player {
             text-align: center;
@@ -104,8 +101,8 @@
             margin-top: 10px;
         }
         .control-button {
-            background-color: #ddd; /* Light grey background */
-            color: #000; /* Black text */
+            background-color: #ddd;
+            color: #000;
             border: none;
             padding: 5px 10px;
             margin: 0 5px;
@@ -113,7 +110,7 @@
             border-radius: 5px;
         }
         .control-button:hover {
-            background-color: #bbb; /* Darker grey hover background */
+            background-color: #bbb;
         }
     </style>
 </head>
@@ -128,30 +125,28 @@
         <a href="#" class="page-link" data-page="ruler-cards">Ruler Cards</a>
         <a href="#" class="page-link" data-page="rulebook">Rulebook</a>
         <a href="#" class="page-link" data-page="world-history">World History</a>
-        <audio id="background-music" controls autoplay loop>
-            <source src="https://raw.githubusercontent.com/RealmCraftStudios/Kingdoms-of-Arcanon/main/WelcometoArcanon.wav" type="audio/wav">
-            <source src="https://raw.githubusercontent.com/RealmCraftStudios/Kingdoms-of-Arcanon/main/CreationofArcanon.wav" type="audio/wav">
-            <source src="https://raw.githubusercontent.com/RealmCraftStudios/Kingdoms-of-Arcanon/main/ComingofDarnkess.wav" type="audio/wav">
-            <source src="https://raw.githubusercontent.com/RealmCraftStudios/Kingdoms-of-Arcanon/main/TheNinePlagues.wav" type="audio/wav">
-            <source src="https://raw.githubusercontent.com/RealmCraftStudios/Kingdoms-of-Arcanon/main/TheDarkTimes.wav" type="audio/wav">
-            <source src="https://raw.githubusercontent.com/RealmCraftStudios/Kingdoms-of-Arcanon/main/GreatWarArcanon.wav" type="audio/wav">
-            Your browser does not support the audio element.
-        </audio>
+        <div class="audio-player">
+            <audio id="audio-player" controls autoplay loop>
+                <source src="https://raw.githubusercontent.com/RealmCraftStudios/Kingdoms-of-Arcanon/main/WelcometoArcanon.wav" type="audio/wav">
+                Your browser does not support the audio element.
+            </audio>
+            <div class="audio-controls">
+                <button class="control-button" id="prevButton">Previous</button>
+                <button class="control-button" id="nextButton">Next</button>
+            </div>
+        </div>
     </div>
     <div class="main-content" id="main-content">
-        <!-- Placeholder for iframe content, replaced dynamically -->
     </div>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const splashScreen = document.getElementById('splash-screen');
             const mainContent = document.getElementById('main-content');
             const pageLinks = document.querySelectorAll('.page-link');
-            const backgroundMusic = document.getElementById('background-music');
             const audioPlayer = document.getElementById('audio-player');
             const nextButton = document.getElementById('nextButton');
             const prevButton = document.getElementById('prevButton');
 
-            // Playlist setup
             let currentTrackIndex = 0;
             const tracks = [
                 "https://raw.githubusercontent.com/RealmCraftStudios/Kingdoms-of-Arcanon/main/WelcometoArcanon.wav",
@@ -162,37 +157,30 @@
                 "https://raw.githubusercontent.com/RealmCraftStudios/Kingdoms-of-Arcanon/main/GreatWarArcanon.wav"
             ];
 
-            // Function to play the current track
             function playCurrentTrack() {
                 audioPlayer.src = tracks[currentTrackIndex];
                 audioPlayer.play();
             }
 
-            // Event listener for next button
             nextButton.addEventListener('click', function() {
                 currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
                 playCurrentTrack();
             });
 
-            // Event listener for previous button
             prevButton.addEventListener('click', function() {
                 currentTrackIndex = (currentTrackIndex - 1 + tracks.length) % tracks.length;
                 playCurrentTrack();
             });
 
-            // Initial play
             playCurrentTrack();
 
-            // Lower volume by 25%
-            backgroundMusic.volume = 0.75;
+            audioPlayer.volume = 0.75;
 
-            // Function to stop the background music
             function stopBackgroundMusic() {
-                backgroundMusic.pause();
-                backgroundMusic.currentTime = 0;
+                audioPlayer.pause();
+                audioPlayer.currentTime = 0;
             }
 
-            // Add click event listener to each link
             pageLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
@@ -202,7 +190,7 @@
                     setTimeout(() => {
                         splashScreen.classList.add('fade-out');
                         mainContent.classList.add('show');
-                        backgroundMusic.pause(); // Stop the background music when splash screen fades out
+                        stopBackgroundMusic();
                         mainContent.innerHTML = `
                             <div class="page-title">
                                 <a href="#" onclick="location.reload();">Kingdoms of Arcanon Game Data</a>
@@ -219,12 +207,11 @@
                             </div>
                             <iframe referrerpolicy="no-referrer-when-downgrade" src="${iframeSrc}" style="width: 100%; height: calc(100% - 80px); border: none;"></iframe>
                         `;
-                        attachLinkListeners(); // Attach listeners to new links
-                    }, 900); // Match the transition duration
+                        attachLinkListeners();
+                    }, 900);
                 });
             });
 
-            // Function to get iframe source based on pageId
             function getIframeSrc(pageId) {
                 switch (pageId) {
                     case 'character-cards':
@@ -248,7 +235,6 @@
                 }
             }
 
-            // Function to attach link listeners to new links
             function attachLinkListeners() {
                 const newPageLinks = document.querySelectorAll('.page-subtitle .page-link');
                 newPageLinks.forEach(link => {
@@ -281,7 +267,6 @@
                 });
             }
 
-            // Attach listener to reload link
             const reloadLink = document.querySelector('.page-title a');
             if (reloadLink) {
                 reloadLink.addEventListener('click', function(e) {
