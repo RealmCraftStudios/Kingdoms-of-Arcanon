@@ -181,55 +181,59 @@
                 audioPlayer.currentTime = 0;
             }
 
-            function loadSubPage(pageId) {
-                const iframeSrc = getIframeSrc(pageId);
-                splashScreen.classList.add('fade-to-black');
-                setTimeout(() => {
-                    splashScreen.classList.add('fade-out');
-                    mainContent.classList.add('show');
-                    stopBackgroundMusic();
-                    mainContent.innerHTML = `
-                        <div class="page-title">
-                            <a href="#" onclick="location.reload();">Kingdoms of Arcanon Game Data</a>
-                        </div>
-                        <div class="page-subtitle">
-                            <a href="#" class="page-link" data-page="character-cards">Character Cards</a>
-                            <a href="#" class="page-link" data-page="attack-cards">Attack Cards</a>
-                            <a href="#" class="page-link" data-page="defense-cards">Defense Cards</a>
-                            <a href="#" class="page-link" data-page="item-cards">Item Cards</a>
-                            <a href="#" class="page-link" data-page="resource-cards">Resource Cards</a>
-                            <a href="#" class="page-link" data-page="ruler-cards">Ruler Cards</a>
-                            <a href="#" class="page-link" data-page="rulebook">Rulebook</a>
-                            <a href="#" class="page-link" data-page="world-history">World History</a>
-                        </div>
-                        <iframe referrerpolicy="no-referrer-when-downgrade" src="${iframeSrc}" style="width: 100%; height: calc(100% - 80px); border: none;"></iframe>
-                    `;
-                    attachLinkListeners();
-                }, 900);
-            }
+            pageLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const pageId = this.getAttribute('data-page');
+                    const iframeSrc = getIframeSrc(pageId);
+                    splashScreen.classList.add('fade-to-black');
+                    setTimeout(() => {
+                        splashScreen.classList.add('fade-out');
+                        mainContent.classList.add('show');
+                        stopBackgroundMusic();
+                        mainContent.innerHTML = `
+                            <div class="page-title">
+                                <a href="#" onclick="location.reload();">Kingdoms of Arcanon Game Data</a>
+                            </div>
+                            <div class="page-subtitle">
+                                <a href="#" class="page-link" data-page="character-cards">Character Cards</a>
+                                <a href="#" class="page-link" data-page="attack-cards">Attack Cards</a>
+                                <a href="#" class="page-link" data-page="defense-cards">Defense Cards</a>
+                                <a href="#" class="page-link" data-page="item-cards">Item Cards</a>
+                                <a href="#" class="page-link" data-page="resource-cards">Resource Cards</a>
+                                <a href="#" class="page-link" data-page="ruler-cards">Ruler Cards</a>
+                                <a href="#" class="page-link" data-page="rulebook">Rulebook</a>
+                                <a href="#" class="page-link" data-page="world-history">World History</a>
+                            </div>
+                            <iframe referrerpolicy="no-referrer-when-downgrade" src="${iframeSrc}" style="width: 100%; height: calc(100% - 80px); border: none;"></iframe>
+                        `;
+                        attachLinkListeners();
+                    }, 900);
+                });
+            });
 
-           function getIframeSrc(pageId) {
-    switch (pageId) {
-        case 'character-cards':
-            return 'CharacterCards.html'; // Adjust path if necessary
-        case 'attack-cards':
-            return 'AttackCards.html'; // Adjust path if necessary
-        case 'defense-cards':
-            return 'DefenseCards.html'; // Adjust path if necessary
-        case 'item-cards':
-            return 'ItemCards.html'; // Adjust path if necessary
-        case 'resource-cards':
-            return 'ResourceCards.html'; // Adjust path if necessary
-        case 'ruler-cards':
-            return 'RulerCards.html'; // Adjust path if necessary
-        case 'rulebook':
-            return 'Rulebook.html'; // Adjust path if necessary
-        case 'world-history':
-            return 'WorldHistory.html'; // Adjust path if necessary
-        default:
-            return ''; // Handle default case if needed
-           }
-        }
+            function getIframeSrc(pageId) {
+                switch (pageId) {
+                    case 'character-cards':
+                        return 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS2HMrAvELJcPvaJ8-YvDGi5RhH2TdqKt29PiEuPH1c_ZpSeyP87dFPhU1r_s2I87WzphAlkfyuP79x/pubhtml?gid=0&single=true&widget=true&headers=false'; // Character Cards iframe source
+                    case 'attack-cards':
+                        return 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS2HMrAvELJcPvaJ8-YvDGi5RhH2TdqKt29PiEuPH1c_ZpSeyP87dFPhU1r_s2I87WzphAlkfyuP79x/pubhtml?gid=589246038&single=true&widget=true&headers=false'; // Attack Cards iframe source
+                    case 'defense-cards':
+                        return 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS2HMrAvELJcPvaJ8-YvDGi5RhH2TdqKt29PiEuPH1c_ZpSeyP87dFPhU1r_s2I87WzphAlkfyuP79x/pubhtml?gid=126896547&single=true'; // Defense Cards iframe source
+                    case 'item-cards':
+                        return 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS2HMrAvELJcPvaJ8-YvDGi5RhH2TdqKt29PiEuPH1c_ZpSeyP87dFPhU1r_s2I87WzphAlkfyuP79x/pubhtml?gid=400758552&single=true&widget=true&headers=false'; // Item Cards iframe source
+                    case 'resource-cards':
+                        return 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS2HMrAvELJcPvaJ8-YvDGi5RhH2TdqKt29PiEuPH1c_ZpSeyP87dFPhU1r_s2I87WzphAlkfyuP79x/pubhtml?gid=1512881124&single=true&widget=true&headers=false'; // Resource Cards iframe source
+                    case 'ruler-cards':
+                        return 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS2HMrAvELJcPvaJ8-YvDGi5RhH2TdqKt29PiEuPH1c_ZpSeyP87dFPhU1r_s2I87WzphAlkfyuP79x/pubhtml?gid=473596735&single=true&widget=true&headers=false'; // Ruler Cards iframe source
+                    case 'rulebook':
+                        return 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS2HMrAvELJcPvaJ8-YvDGi5RhH2TdqKt29PiEuPH1c_ZpSeyP87dFPhU1r_s2I87WzphAlkfyuP79x/pubhtml?gid=1951998515&single=true'; // Rulebook iframe source
+                    case 'world-history':
+                        return 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS2HMrAvELJcPvaJ8-YvDGi5RhH2TdqKt29PiEuPH1c_ZpSeyP87dFPhU1r_s2I87WzphAlkfyuP79x/pubhtml?gid=325954026&single=true'; // World History iframe source
+                    default:
+                        return ''; // Handle default case if needed
+                }
+            }
 
             function attachLinkListeners() {
                 const newPageLinks = document.querySelectorAll('.page-subtitle .page-link');
@@ -238,18 +242,30 @@
                         e.preventDefault();
                         stopBackgroundMusic();
                         const pageId = this.getAttribute('data-page');
-                        loadSubPage(pageId);
+                        const iframeSrc = getIframeSrc(pageId);
+
+                        const iframeHTML = `
+                            <div class="page-title">
+                                <a href="#" onclick="location.reload();">Kingdoms of Arcanon Game Data</a>
+                            </div>
+                            <div class="page-subtitle">
+                                <a href="#" class="page-link" data-page="character-cards">Character Cards</a>
+                                <a href="#" class="page-link" data-page="attack-cards">Attack Cards</a>
+                                <a href="#" class="page-link" data-page="defense-cards">Defense Cards</a>
+                                <a href="#" class="page-link" data-page="item-cards">Item Cards</a>
+                                <a href="#" class="page-link" data-page="resource-cards">Resource Cards</a>
+                                <a href="#" class="page-link" data-page="ruler-cards">Ruler Cards</a>
+                                <a href="#" class="page-link" data-page="rulebook">Rulebook</a>
+                                <a href="#" class="page-link" data-page="world-history">World History</a>
+                            </div>
+                            <iframe referrerpolicy="no-referrer-when-downgrade" src="${iframeSrc}" style="width: 100%; height: calc(100% - 80px); border: none;"></iframe>
+                        `;
+
+                        mainContent.innerHTML = iframeHTML;
+                        attachLinkListeners(); // Attach listeners to new links
                     });
                 });
             }
-
-            pageLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const pageId = this.getAttribute('data-page');
-                    loadSubPage(pageId);
-                });
-            });
 
             const reloadLink = document.querySelector('.page-title a');
             if (reloadLink) {
