@@ -208,28 +208,28 @@
                 }, 900);
             }
 
-            function getIframeSrc(pageId) {
-                switch (pageId) {
-                    case 'character-cards':
-                        return 'charactercards.html';
-                    case 'attack-cards':
-                        return 'AttackCards.html';
-                    case 'defense-cards':
-                        return 'DefenseCards.html';
-                    case 'item-cards':
-                        return 'ItemCards.html';
-                    case 'resource-cards':
-                        return 'ResourceCards.html';
-                    case 'ruler-cards':
-                        return 'RulerCards.html';
-                    case 'rulebook':
-                        return 'Rulebook.html';
-                    case 'World-History':
-                        return 'worldhistory.html';
-                    default:
-                        return ''; // Handle default case if needed
-                }
-            }
+           function getIframeSrc(pageId) {
+    switch (pageId) {
+        case 'character-cards':
+            return 'charactercards.html'; // Adjust path if necessary
+        case 'attack-cards':
+            return 'attackcards.html'; // Adjust path if necessary
+        case 'defense-cards':
+            return 'defensecards.html'; // Adjust path if necessary
+        case 'item-cards':
+            return 'itemcards.html'; // Adjust path if necessary
+        case 'resource-cards':
+            return 'resourcecards.html'; // Adjust path if necessary
+        case 'ruler-cards':
+            return 'rulercards.html'; // Adjust path if necessary
+        case 'rulebook':
+            return 'rulebook.html'; // Adjust path if necessary
+        case 'world-history':
+            return 'worldhistory.html'; // Adjust path if necessary
+        default:
+            return ''; // Handle default case if needed
+           }
+        }
 
             function attachLinkListeners() {
                 const newPageLinks = document.querySelectorAll('.page-subtitle .page-link');
