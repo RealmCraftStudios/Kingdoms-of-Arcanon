@@ -238,32 +238,15 @@
             }
 
             function attachLinkListeners() {
-                const newPageLinks = document.querySelectorAll('.page-link');
-                newPageLinks.forEach(link => {
-                    link.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        const pageId = this.getAttribute('data-page');
-                        const iframeSrc = getIframeSrc(pageId);
-                        mainContent.innerHTML = `
-                            <div class="page-title">
-                                <a href="#">Kingdoms of Arcanon Game Data</a>
-                            </div>
-                            <div class="page-subtitle">
-                                <a href="#" class="page-link" data-page="charactercards">Character Cards</a>
-                                <a href="#" class="page-link" data-page="attackcards">Attack Cards</a>
-                                <a href="#" class="page-link" data-page="defensecards">Defense Cards</a>
-                                <a href="#" class="page-link" data-page="itemcards">Item Cards</a>
-                                <a href="#" class="page-link" data-page="resourcecards">Resource Cards</a>
-                                <a href="#" class="page-link" data-page="rulercards">Ruler Cards</a>
-                                <a href="#" class="page-link" data-page="rulebook">Rulebook</a>
-                                <a href="#" class="page-link" data-page="worldhistory">World History</a>
-                            </div>
-                            <div class="main-content">
-                                <iframe referrerpolicy="no-referrer-when-downgrade" src="${iframeSrc}" frameborder="0"></iframe>
-                            </div>
-                        `;
-                        attachLinkListeners();
-                    });
+                const pageTitleLink = document.querySelector('.page-title a');
+                pageTitleLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    splashScreen.classList.remove('fade-out');
+                    mainContent.classList.remove('show');
+                    splashScreen.classList.remove('fade-to-black');
+                    setTimeout(() => {
+                        mainContent.innerHTML = '';
+                    }, 900);
                 });
             }
         });
