@@ -49,31 +49,28 @@
             height: 100%;
             padding-top: 20px;
             box-sizing: border-box;
+            text-align: center; /* Center align sub-page titles */
         }
         .main-content.show {
             display: block;
         }
-        .main-content iframe {
-            width: 100%;
-            height: calc(100% - 80px);
-            border: none;
-        }
-        .page-title {
-            text-align: center;
+        .main-content .page-title {
             font-size: 24px;
             margin-bottom: 10px;
             padding: 20px;
-            background-color: #333;
-            color: #fff;
+            background-color: #ddd; /* Grey box background */
+            color: #000; /* Black text color */
+            width: auto;
+            display: inline-block;
+            margin: 10px 0;
         }
-        .page-subtitle {
-            text-align: center;
+        .main-content .page-subtitle {
             font-size: 20px;
             margin-bottom: 20px;
             padding: 10px;
             background-color: none;
         }
-        .page-link {
+        .main-content .page-link {
             font-size: 18px;
             text-decoration: none;
             color: #000;
@@ -84,7 +81,7 @@
             background-color: #ddd;
             margin: 0 10px;
         }
-        .page-link:hover {
+        .main-content .page-link:hover {
             text-decoration: underline;
             background-color: #bbb;
         }
@@ -161,7 +158,6 @@
     </div>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            const splashScreen = document.getElementById('splash-screen');
             const mainContent = document.getElementById('main-content');
             const pageLinks = document.querySelectorAll('.page-link');
             const audioPlayer = document.getElementById('audio-player');
@@ -202,38 +198,6 @@
                 audioPlayer.currentTime = 0;
             }
 
-            pageLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const pageId = this.getAttribute('data-page');
-                    const iframeSrc = getIframeSrc(pageId);
-                    splashScreen.classList.add('fade-to-black');
-                    setTimeout(() => {
-                        splashScreen.classList.add('fade-out');
-                        mainContent.classList.add('show');
-                        stopBackgroundMusic();
-                        mainContent.innerHTML = `
-                            <div class="page-title">
-                                <a href="#" onclick="location.reload();">Kingdoms of Arcanon Game Data</a>
-                            </div>
-                            <div class="page-subtitle" id="subtitle-${pageId}">
-                                <a href="#" class="page-link" data-page="character-cards">Character Cards</a>
-                                <a href="#" class="page-link" data-page="attack-cards">Attack Cards</a>
-                                <a href="#" class="page-link" data-page="defense-cards">Defense Cards</a>
-                                <a href="#" class="page-link" data-page="item-cards">Item Cards</a>
-                                <a href="#" class="page-link" data-page="resource-cards">Resource Cards</a>
-                                <a href="#" class="page-link" data-page="ruler-cards">Ruler Cards</a>
-                                <a href="#" class="page-link" data-page="rulebook">Rulebook</a>
-                                <a href="#" class="page-link" data-page="world-history">World History</a>
-                                <a href="#" class="page-link" data-page="set-info">Set Info</a>
-                            </div>
-                            <iframe referrerpolicy="no-referrer-when-downgrade" src="${iframeSrc}" style="width: 100%; height: calc(100% - 80px); border: none;"></iframe>
-                        `;
-                        attachLinkListeners();
-                    }, 1000);
-                });
-            });
-
             function getIframeSrc(pageId) {
                 switch (pageId) {
                     case 'character-cards':
@@ -259,31 +223,35 @@
                 }
             }
 
+            function loadSubPage(pageId) {
+                const iframeSrc = getIframeSrc(pageId);
+                mainContent.innerHTML = `
+                    <div class="page-title">
+                        <a href="#" onclick="location.reload();">Kingdoms of Arcanon Game Data</a>
+                    </div>
+                    <div class="page-subtitle" id="subtitle-${pageId}">
+                        <a href="#" class="page-link" data-page="character-cards">Character Cards</a>
+                        <a href="#" class="page-link" data-page="attack-cards">Attack Cards</a>
+                        <a href="#" class="page-link" data-page="defense-cards">Defense Cards</a>
+                        <a href="#" class="page-link" data-page="item-cards">Item Cards</a>
+                        <a href="#" class="page-link" data-page="resource-cards">Resource Cards</a>
+                        <a href="#" class="page-link" data-page="ruler-cards">Ruler Cards</a>
+                        <a href="#" class="page-link" data-page="rulebook">Rulebook</a>
+                        <a href="#" class="page-link" data-page="world-history">World History</a>
+                        <a href="#" class="page-link" data-page="set-info">Set Info</a>
+                    </div>
+                    <iframe referrerpolicy="no-referrer-when-downgrade" src="${iframeSrc}" style="width: 100%; height: calc(100% - 80px); border: none;"></iframe>
+                `;
+                attachLinkListeners();
+            }
+
             function attachLinkListeners() {
                 const pageLinks = document.querySelectorAll('.page-link');
                 pageLinks.forEach(link => {
                     link.addEventListener('click', function(e) {
                         e.preventDefault();
                         const pageId = this.getAttribute('data-page');
-                        const iframeSrc = getIframeSrc(pageId);
-                        mainContent.innerHTML = `
-                            <div class="page-title">
-                                <a href="#" onclick="location.reload();">Kingdoms of Arcanon Game Data</a>
-                            </div>
-                            <div class="page-subtitle" id="subtitle-${pageId}">
-                                <a href="#" class="page-link" data-page="character-cards">Character Cards</a>
-                                <a href="#" class="page-link" data-page="attack-cards">Attack Cards</a>
-                                <a href="#" class="page-link" data-page="defense-cards">Defense Cards</a>
-                                <a href="#" class="page-link" data-page="item-cards">Item Cards</a>
-                                <a href="#" class="page-link" data-page="resource-cards">Resource Cards</a>
-                                <a href="#" class="page-link" data-page="ruler-cards">Ruler Cards</a>
-                                <a href="#" class="page-link" data-page="rulebook">Rulebook</a>
-                                <a href="#" class="page-link" data-page="world-history">World History</a>
-                                <a href="#" class="page-link" data-page="set-info">Set Info</a>
-                            </div>
-                            <iframe referrerpolicy="no-referrer-when-downgrade" src="${iframeSrc}" style="width: 100%; height: calc(100% - 80px); border: none;"></iframe>
-                        `;
-                        attachLinkListeners();
+                        loadSubPage(pageId);
                     });
                 });
             }
@@ -299,7 +267,6 @@
                 const searchText = this.value.trim().toLowerCase();
                 const subtitles = document.querySelectorAll('.page-subtitle');
                 subtitles.forEach(subtitle => {
-                    const pageId = subtitle.id.split('-')[1];
                     const links = subtitle.querySelectorAll('.page-link');
                     links.forEach(link => {
                         const linkText = link.textContent.trim().toLowerCase();
@@ -312,10 +279,27 @@
                 });
             });
 
-            const searchContainer = document.createElement('div');
-            searchContainer.setAttribute('class', 'search-container');
-            searchContainer.appendChild(searchInput);
-            splashScreen.appendChild(searchContainer);
+            function showSearchBar() {
+                const searchContainer = document.createElement('div');
+                searchContainer.setAttribute('class', 'search-container');
+                searchContainer.appendChild(searchInput);
+                mainContent.appendChild(searchContainer);
+            }
+
+            // Function to load initial content (splash screen)
+            function loadSplashScreen() {
+                const splashScreen = document.getElementById('splash-screen');
+                splashScreen.classList.add('fade-to-black');
+                setTimeout(() => {
+                    splashScreen.classList.add('fade-out');
+                    mainContent.classList.add('show');
+                    stopBackgroundMusic();
+                    showSearchBar(); // Show search bar on sub-pages
+                }, 1000);
+            }
+
+            // Initial load
+            loadSplashScreen();
         });
     </script>
 </body>
