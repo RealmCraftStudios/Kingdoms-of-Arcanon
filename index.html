@@ -1,138 +1,290 @@
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    const splashScreen = document.getElementById('splash-screen');
-    const mainContent = document.getElementById('main-content');
-    const pageLinks = document.querySelectorAll('.page-link');
-    const audioPlayer = document.getElementById('audio-player');
-    const nextButton = document.getElementById('nextButton');
-    const prevButton = document.getElementById('prevButton');
-
-    let currentTrackIndex = 0;
-    const tracks = [
-        "https://raw.githubusercontent.com/RealmCraftStudios/Kingdoms-of-Arcanon/main/WelcometoArcanon.wav",
-        "https://raw.githubusercontent.com/RealmCraftStudios/Kingdoms-of-Arcanon/main/CreationofArcanon.wav",
-        "https://raw.githubusercontent.com/RealmCraftStudios/Kingdoms-of-Arcanon/main/ComingofDarnkess.wav",
-        "https://raw.githubusercontent.com/RealmCraftStudios/Kingdoms-of-Arcanon/main/TheNinePlagues.wav",
-        "https://raw.githubusercontent.com/RealmCraftStudios/Kingdoms-of-Arcanon/main/TheDarkTimes.wav",
-        "https://raw.githubusercontent.com/RealmCraftStudios/Kingdoms-of-Arcanon/main/GreatWarArcanon.wav"
-    ];
-
-    function playCurrentTrack() {
-        audioPlayer.src = tracks[currentTrackIndex];
-        audioPlayer.play();
-    }
-
-    nextButton.addEventListener('click', function() {
-        currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
-        playCurrentTrack();
-    });
-
-    prevButton.addEventListener('click', function() {
-        currentTrackIndex = (currentTrackIndex - 1 + tracks.length) % tracks.length;
-        playCurrentTrack();
-    });
-
-    playCurrentTrack();
-
-    audioPlayer.volume = 0.75;
-
-    function stopBackgroundMusic() {
-        audioPlayer.pause();
-        audioPlayer.currentTime = 0;
-    }
-
-    function showMainContent(pageId) {
-        const iframeSrc = getIframeSrc(pageId);
-        splashScreen.classList.add('fade-to-black');
-        setTimeout(() => {
-            splashScreen.classList.add('fade-out');
-            mainContent.classList.add('show');
-            stopBackgroundMusic();
-            mainContent.innerHTML = `
-                <div class="page-title">
-                    <a href="#" onclick="location.reload();">Kingdoms of Arcanon Game Data</a>
-                </div>
-                <div class="page-subtitle" id="subtitle-${pageId}">
-                    <a href="#" class="page-link" data-page="character-cards">Character Cards</a>
-                    <a href="#" class="page-link" data-page="attack-cards">Attack Cards</a>
-                    <a href="#" class="page-link" data-page="defense-cards">Defense Cards</a>
-                    <a href="#" class="page-link" data-page="item-cards">Item Cards</a>
-                    <a href="#" class="page-link" data-page="resource-cards">Resource Cards</a>
-                    <a href="#" class="page-link" data-page="ruler-cards">Ruler Cards</a>
-                    <a href="#" class="page-link" data-page="rulebook">Rulebook</a>
-                    <a href="#" class="page-link" data-page="world-history">World History</a>
-                    <a href="#" class="page-link" data-page="set-info">Set Info</a>
-                </div>
-                <iframe referrerpolicy="no-referrer-when-downgrade" src="${iframeSrc}" style="width: 100%; height: calc(100% - 80px); border: none;"></iframe>
-            `;
-            attachLinkListeners();
-        }, 1000);
-    }
-
-    function getIframeSrc(pageId) {
-        switch (pageId) {
-            case 'character-cards':
-                return 'CharacterCards/index.html';
-            case 'attack-cards':
-                return 'AttackCards/index.html';
-            case 'defense-cards':
-                return 'DefenseCards/index.html';
-            case 'item-cards':
-                return 'ItemCards/index.html';
-            case 'resource-cards':
-                return 'ResourceCards/index.html';
-            case 'ruler-cards':
-                return 'RulerCards/index.html';
-            case 'rulebook':
-                return 'Rulebook/index.html';
-            case 'world-history':
-                return 'WorldHistory/index.html';
-            case 'set-info':
-                return 'SetInfo/index.html';
-            default:
-                return '';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kingdoms of Arcanon Game Data - Character Cards</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: Arial, sans-serif;
+            background-color: #939799;
+            background-image: url('https://raw.githubusercontent.com/RealmCraftStudios/Kingdoms-of-Arcanon/main/index.jpg');
+            background-size: cover;
+            background-position: center;
+            color: #000;
         }
-    }
+        .splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 1000;
+            opacity: 1;
+            transition: opacity 1s ease-out, background-color 1s ease-out, color 1s ease-out;
+            cursor: pointer;
+        }
+        .splash-screen.fade-to-black {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        .splash-screen.fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
+        .main-content {
+            display: none;
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #000;
+            width: 100%;
+            height: 100%;
+            padding-top: 20px;
+            box-sizing: border-box;
+        }
+        .main-content.show {
+            display: block;
+        }
+        .main-content iframe {
+            width: 100%;
+            height: calc(100% - 80px);
+            border: none;
+        }
+        .page-title {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 10px;
+            padding: 20px;
+            background-color: #333;
+            color: #fff;
+        }
+        .page-subtitle {
+            text-align: center;
+            font-size: 20px;
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: none;
+        }
+        .page-link {
+            font-size: 18px;
+            text-decoration: none;
+            color: #000;
+            margin-bottom: 10px;
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 5px;
+            background-color: #ddd;
+            margin: 0 10px;
+        }
+        .page-link:hover {
+            text-decoration: underline;
+            background-color: #bbb;
+        }
+        h1 a {
+            color: #fff;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        h1 a:hover {
+            text-decoration: underline;
+        }
+        .audio-player {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .audio-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .control-button {
+            background-color: #ddd;
+            color: #000;
+            border: none;
+            padding: 5px 10px;
+            margin: 0 5px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .control-button:hover {
+            background-color: #bbb;
+        }
+        .search-container {
+            text-align: center;
+            margin: 10px auto;
+        }
+        .search-input {
+            padding: 8px;
+            width: 300px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <div class="splash-screen" id="splash-screen">
+        <h1 style="font-size: 36px;"><a href="#" onclick="location.reload();">Kingdoms of Arcanon Game Data</a></h1>
+        <div class="page-subtitle">
+            <a href="#" class="page-link" data-page="character-cards">Character Cards</a>
+            <a href="#" class="page-link" data-page="attack-cards">Attack Cards</a>
+            <a href="#" class="page-link" data-page="defense-cards">Defense Cards</a>
+            <a href="#" class="page-link" data-page="item-cards">Item Cards</a>
+            <a href="#" class="page-link" data-page="resource-cards">Resource Cards</a>
+            <a href="#" class="page-link" data-page="ruler-cards">Ruler Cards</a>
+            <a href="#" class="page-link" data-page="rulebook">Rulebook</a>
+            <a href="#" class="page-link" data-page="world-history">World History</a>
+            <a href="#" class="page-link" data-page="set-info">Set Info</a>
+        </div>
+        <div class="audio-player">
+            <audio id="audio-player" controls autoplay loop>
+                <source src="https://raw.githubusercontent.com/RealmCraftStudios/Kingdoms-of-Arcanon/main/WelcometoArcanon.wav" type="audio/wav">
+                Your browser does not support the audio element.
+            </audio>
+            <div class="audio-controls">
+                <button class="control-button" id="prevButton">Previous</button>
+                <button class="control-button" id="nextButton">Next</button>
+            </div>
+        </div>
+    </div>
+    <div class="main-content" id="main-content">
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const splashScreen = document.getElementById('splash-screen');
+            const mainContent = document.getElementById('main-content');
+            const pageLinks = document.querySelectorAll('.page-link');
+            const audioPlayer = document.getElementById('audio-player');
+            const nextButton = document.getElementById('nextButton');
+            const prevButton = document.getElementById('prevButton');
 
-    function attachLinkListeners() {
-        const pageLinks = document.querySelectorAll('.page-link');
-        pageLinks.forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const pageId = this.getAttribute('data-page');
-                showMainContent(pageId);
+            let currentTrackIndex = 0;
+            const tracks = [
+                "https://raw.githubusercontent.com/RealmCraftStudios/Kingdoms-of-Arcanon/main/WelcometoArcanon.wav",
+                "https://raw.githubusercontent.com/RealmCraftStudios/Kingdoms-of-Arcanon/main/CreationofArcanon.wav",
+                "https://raw.githubusercontent.com/RealmCraftStudios/Kingdoms-of-Arcanon/main/ComingofDarnkess.wav",
+                "https://raw.githubusercontent.com/RealmCraftStudios/Kingdoms-of-Arcanon/main/TheNinePlagues.wav",
+                "https://raw.githubusercontent.com/RealmCraftStudios/Kingdoms-of-Arcanon/main/TheDarkTimes.wav",
+                "https://raw.githubusercontent.com/RealmCraftStudios/Kingdoms-of-Arcanon/main/GreatWarArcanon.wav"
+            ];
+
+            function playCurrentTrack() {
+                audioPlayer.src = tracks[currentTrackIndex];
+                audioPlayer.play();
+            }
+
+            nextButton.addEventListener('click', function() {
+                currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
+                playCurrentTrack();
             });
-        });
-    }
 
-    attachLinkListeners();
+            prevButton.addEventListener('click', function() {
+                currentTrackIndex = (currentTrackIndex - 1 + tracks.length) % tracks.length;
+                playCurrentTrack();
+            });
 
-    // Search functionality
-    const searchInput = document.createElement('input');
-    searchInput.setAttribute('type', 'text');
-    searchInput.setAttribute('class', 'search-input');
-    searchInput.setAttribute('placeholder', 'Search...');
-    searchInput.addEventListener('input', function() {
-        const searchText = this.value.trim().toLowerCase();
-        const subtitles = document.querySelectorAll('.page-subtitle');
-        subtitles.forEach(subtitle => {
-            const pageId = subtitle.id.split('-')[1];
-            const links = subtitle.querySelectorAll('.page-link');
-            links.forEach(link => {
-                const linkText = link.textContent.trim().toLowerCase();
-                if (linkText.includes(searchText)) {
-                    link.style.display = 'inline-block';
-                } else {
-                    link.style.display = 'none';
+            playCurrentTrack();
+
+            audioPlayer.volume = 0.75;
+
+            function stopBackgroundMusic() {
+                audioPlayer.pause();
+                audioPlayer.currentTime = 0;
+            }
+
+            pageLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const pageId = this.getAttribute('data-page');
+                    const iframeSrc = getIframeSrc(pageId);
+                    splashScreen.classList.add('fade-to-black');
+                    setTimeout(() => {
+                        splashScreen.classList.add('fade-out');
+                        mainContent.classList.add('show');
+                        stopBackgroundMusic();
+                        mainContent.innerHTML = `
+                            <div class="page-title">
+                                <a href="#" onclick="location.reload();">Kingdoms of Arcanon Game Data</a>
+                            </div>
+                            <div class="page-subtitle" id="subtitle-${pageId}">
+                                <a href="#" class="page-link" data-page="character-cards">Character Cards</a>
+                                <a href="#" class="page-link" data-page="attack-cards">Attack Cards</a>
+                                <a href="#" class="page-link" data-page="defense-cards">Defense Cards</a>
+                                <a href="#" class="page-link" data-page="item-cards">Item Cards</a>
+                                <a href="#" class="page-link" data-page="resource-cards">Resource Cards</a>
+                                <a href="#" class="page-link" data-page="ruler-cards">Ruler Cards</a>
+                                <a href="#" class="page-link" data-page="rulebook">Rulebook</a>
+                                <a href="#" class="page-link" data-page="world-history">World History</a>
+                                <a href="#" class="page-link" data-page="set-info">Set Info</a>
+                            </div>
+                            <div class="audio-player">
+                                <audio id="audio-player" controls autoplay loop>
+                                    <source src="${tracks[currentTrackIndex]}" type="audio/wav">
+                                    Your browser does not support the audio element.
+                                </audio>
+                                <div class="audio-controls">
+                                    <button class="control-button" id="prevButton">Previous</button>
+                                    <button class="control-button" id="nextButton">Next</button>
+                                </div>
+                            </div>
+                            <div class="search-container">
+                                <input type="text" id="searchInput" class="search-input" placeholder="Search...">
+                            </div>
+                            <iframe src="${iframeSrc}" frameborder="0"></iframe>
+                        `;
+                    }, 1000);
+                });
+            });
+
+            function getIframeSrc(pageId) {
+                switch (pageId) {
+                    case 'attack-cards':
+                        return 'AttackCards/index.html';
+                    case 'defense-cards':
+                        return 'DefenseCards/index.html';
+                    case 'item-cards':
+                        return 'ItemCards/index.html';
+                    case 'resource-cards':
+                        return 'ResourceCards/index.html';
+                    case 'ruler-cards':
+                        return 'RulerCards/index.html';
+                    case 'rulebook':
+                        return 'Rulebook/index.html';
+                    case 'world-history':
+                        return 'WorldHistory/index.html';
+                    case 'set-info':
+                        return 'SetInfo/index.html';
+                    case 'character-cards':
+                    default:
+                        return 'CharacterCards/index.html';
                 }
+            }
+
+            const searchInput = document.getElementById('searchInput');
+            const pageSubtitle = document.getElementById('subtitle-character-cards'); // Update with actual subtitle ID for each page
+
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                pageSubtitle.querySelectorAll('.page-link').forEach(link => {
+                    const text = link.textContent.toLowerCase();
+                    if (text.includes(searchTerm)) {
+                        link.style.display = 'inline-block';
+                    } else {
+                        link.style.display = 'none';
+                    }
+                });
             });
         });
-    });
-
-    const searchContainer = document.createElement('div');
-    searchContainer.setAttribute('class', 'search-container');
-    searchContainer.appendChild(searchInput);
-    mainContent.appendChild(searchContainer); // Append to main content, not splash screen
-
-});
-</script>
+    </script>
+</body>
+</html>
