@@ -3,22 +3,194 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Character Cards - Kingdoms of Arcanon Game Data</title>
+    <title>Kingdoms of Arcanon Game Data - Character Cards</title>
     <style>
-        body {
+        body, html {
             margin: 0;
             padding: 0;
+            width: 100%;
+            height: 100%;
             font-family: Arial, sans-serif;
-            background-color: #fff; /* Adjust background color if needed */
-            color: #000; /* Adjust text color if needed */
+            background-color: #939799;
+            color: #000;
         }
-        /* Add any specific styling for Character Cards here */
+        .splash-screen {
+            background-image: url('https://raw.githubusercontent.com/RealmCraftStudios/Kingdoms-of-Arcanon/main/index.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+        }
+        .splash-content {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 80%;
+            margin: auto;
+        }
+        .splash-content h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        .splash-subtitles {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .splash-subtitles a {
+            font-size: 18px;
+            text-decoration: none;
+            color: #fff;
+            background-color: #333;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .splash-subtitles a:hover {
+            background-color: #555;
+        }
+        .main-content {
+            background-color: #fff;
+            padding: 20px;
+        }
+        .page-title {
+            font-size: 24px;
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #eee;
+        }
+        .page-subtitle {
+            text-align: center;
+            font-size: 20px;
+            margin-bottom: 20px;
+            padding: 10px;
+        }
+        .page-link {
+            font-size: 18px;
+            text-decoration: none;
+            color: #000;
+            margin: 0 10px;
+        }
+        .page-link:hover {
+            text-decoration: underline;
+        }
+        .search-container {
+            text-align: center;
+            margin: 10px auto;
+        }
+        .search-input {
+            padding: 8px;
+            width: 300px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
     </style>
 </head>
 <body>
-    <!-- Example content for Character Cards -->
-    <h1>Character Cards</h1>
-    <p>This is where the content specific to Character Cards would go.</p>
-    <p>Replace this with your actual content or iframe if using external content.</p>
+    <div class="splash-screen" id="splash-screen">
+        <div class="splash-content">
+            <h1><a href="#" onclick="location.reload();">Kingdoms of Arcanon Game Data</a></h1>
+            <div class="splash-subtitles">
+                <a href="#" class="page-link" data-page="character-cards">Character Cards</a>
+                <a href="#" class="page-link" data-page="attack-cards">Attack Cards</a>
+                <a href="#" class="page-link" data-page="defense-cards">Defense Cards</a>
+                <a href="#" class="page-link" data-page="item-cards">Item Cards</a>
+                <a href="#" class="page-link" data-page="resource-cards">Resource Cards</a>
+                <a href="#" class="page-link" data-page="ruler-cards">Ruler Cards</a>
+                <a href="#" class="page-link" data-page="rulebook">Rulebook</a>
+                <a href="#" class="page-link" data-page="world-history">World History</a>
+                <a href="#" class="page-link" data-page="set-info">Set Info</a>
+            </div>
+        </div>
+    </div>
+    <div class="main-content" id="main-content">
+        <!-- Content will be dynamically loaded here -->
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const splashScreen = document.getElementById('splash-screen');
+            const mainContent = document.getElementById('main-content');
+            const pageLinks = document.querySelectorAll('.page-link');
+            const searchInput = document.getElementById('searchInput');
+
+            function loadPage(pageId) {
+                const iframeSrc = getIframeSrc(pageId);
+                mainContent.innerHTML = `
+                    <div class="page-title">
+                        <a href="#" onclick="location.reload();">Kingdoms of Arcanon Game Data</a>
+                    </div>
+                    <div class="page-subtitle">
+                        <a href="#" class="page-link" data-page="character-cards">Character Cards</a>
+                        <a href="#" class="page-link" data-page="attack-cards">Attack Cards</a>
+                        <a href="#" class="page-link" data-page="defense-cards">Defense Cards</a>
+                        <a href="#" class="page-link" data-page="item-cards">Item Cards</a>
+                        <a href="#" class="page-link" data-page="resource-cards">Resource Cards</a>
+                        <a href="#" class="page-link" data-page="ruler-cards">Ruler Cards</a>
+                        <a href="#" class="page-link" data-page="rulebook">Rulebook</a>
+                        <a href="#" class="page-link" data-page="world-history">World History</a>
+                        <a href="#" class="page-link" data-page="set-info">Set Info</a>
+                    </div>
+                    <div class="search-container">
+                        <input type="text" id="searchInput" class="search-input" placeholder="Search...">
+                    </div>
+                    <iframe src="${iframeSrc}" frameborder="0"></iframe>
+                `;
+            }
+
+            function getIframeSrc(pageId) {
+                switch (pageId) {
+                    case 'attack-cards':
+                        return 'AttackCards/index.html';
+                    case 'defense-cards':
+                        return 'DefenseCards/index.html';
+                    case 'item-cards':
+                        return 'ItemCards/index.html';
+                    case 'resource-cards':
+                        return 'ResourceCards/index.html';
+                    case 'ruler-cards':
+                        return 'RulerCards/index.html';
+                    case 'rulebook':
+                        return 'Rulebook/index.html';
+                    case 'world-history':
+                        return 'WorldHistory/index.html';
+                    case 'set-info':
+                        return 'SetInfo/index.html';
+                    case 'character-cards':
+                    default:
+                        return 'CharacterCards/index.html';
+                }
+            }
+
+            pageLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const pageId = this.getAttribute('data-page');
+                    loadPage(pageId);
+                });
+            });
+
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                const pageSubtitle = document.querySelector('.page-subtitle');
+                pageSubtitle.querySelectorAll('.page-link').forEach(link => {
+                    const text = link.textContent.toLowerCase();
+                    if (text.includes(searchTerm)) {
+                        link.style.display = 'inline-block';
+                    } else {
+                        link.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
