@@ -117,15 +117,15 @@
 <body>
     <div class="splash-screen" id="splash-screen">
         <h1 style="font-size: 36px;"><a href="#" onclick="location.reload();">Kingdoms of Arcanon Game Data</a></h1>
-        <a href="charactercards" class="page-link">Character Cards</a>
-        <a href="attackcards" class="page-link">Attack Cards</a>
-        <a href="defensecards" class="page-link">Defense Cards</a>
-        <a href="itemcards" class="page-link">Item Cards</a>
-        <a href="resourcecards" class="page-link">Resource Cards</a>
-        <a href="rulercards" class="page-link">Ruler Cards</a>
-        <a href="rulebook" class="page-link">Rulebook</a>
-        <a href="worldhistory" class="page-link">World History</a>
-        <a href="setinfo" class="page-link">Set Info</a>
+        <a href="CharacterCards/index.html" class="page-link">Character Cards</a>
+        <a href="AttackCards/index.html" class="page-link">Attack Cards</a>
+        <a href="DefenseCards/index.html" class="page-link">Defense Cards</a>
+        <a href="ItemCards/index.html" class="page-link">Item Cards</a>
+        <a href="ResourceCards/index.html" class="page-link">Resource Cards</a>
+        <a href="RulerCards/index.html" class="page-link">Ruler Cards</a>
+        <a href="Rulebook/index.html" class="page-link">Rulebook</a>
+        <a href="WorldHistory/index.html" class="page-link">World History</a>
+        <a href="SetInfo/index.html" class="page-link">Set Info</a>
         <div class="audio-player">
             <audio id="audio-player" controls autoplay loop>
                 <source src="https://raw.githubusercontent.com/RealmCraftStudios/Kingdoms-of-Arcanon/main/WelcometoArcanon.wav" type="audio/wav">
@@ -136,8 +136,6 @@
                 <button class="control-button" id="nextButton">Next</button>
             </div>
         </div>
-    </div>
-    <div class="main-content" id="main-content">
     </div>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -184,89 +182,9 @@
 
             pageLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const pageId = this.getAttribute('data-page');
-                    const iframeSrc = getIframeSrc(pageId);
-                    splashScreen.classList.add('fade-to-black');
-                    setTimeout(() => {
-                        splashScreen.classList.add('fade-out');
-                        mainContent.classList.add('show');
-                        stopBackgroundMusic();
-                        mainContent.innerHTML = `
-                            <div class="page-title">
-                                <a href="#" onclick="location.reload();">Kingdoms of Arcanon Game Data</a>
-                            </div>
-                            <div class="page-subtitle">
-                                <a href="charactercards" class="page-link">Character Cards</a>
-                                <a href="attackcards" class="page-link">Attack Cards</a>
-                                <a href="defensecards" class="page-link">Defense Cards</a>
-                                <a href="itemcards" class="page-link">Item Cards</a>
-                                <a href="resourcecards" class="page-link">Resource Cards</a>
-                                <a href="rulercards" class="page-link">Ruler Cards</a>
-                                <a href="rulebook" class="page-link">Rulebook</a>
-                                <a href="worldhistory" class="page-link">World History</a>
-                                <a href="setinfo" class="page-link">Set Info</a>
-                            </div>
-                            <iframe referrerpolicy="no-referrer-when-downgrade" src="${iframeSrc}" style="width: 100%; height: calc(100% - 80px); border: none;"></iframe>
-                        `;
-                        attachLinkListeners();
-                    }, 900);
+                    stopBackgroundMusic();
                 });
             });
-
-            function getIframeSrc(pageId) {
-                switch (pageId) {
-                    case 'character-cards':
-                        return 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS2HMrAvELJcPvaJ8-YvDGi5RhH2TdqKt29PiEuPH1c_ZpSeyP87dFPhU1r_s2I87WzphAlkfMQT4sH/pubhtml';
-                    case 'attack-cards':
-                        return 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSq1RlsddjH3SaZ1_Y5G83KjtdBPXzN7XHLgugCyZ3ee_xG8I8APcWg5gSM9ie3v1cLP-lE5qXf3hwY/pubhtml';
-                    case 'defense-cards':
-                        return 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS_5vjOYgEg8X_1YJKV8M9dxAJqXMlLejQY7lTASxkVVtwO_wz8kj8Jh1RuHs1kY9H8EoYDaLrhh6vh/pubhtml';
-                    case 'item-cards':
-                        return 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRzQ9cD5sRQvYNL3fRHmg7tlxqK3ld6uBM55B1kPBxRDzAYqUuFMsxE7FiEB6rUQGV1JGeDoLEEn9Ui/pubhtml';
-                    case 'resource-cards':
-                        return 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTmrpsufhhH2oM2a8J7ThjINt-fybGoe4ni70E_i7oQ--iI7Kehc66l-3NQ6NjIbDIlBTVx9h2U3MN7/pubhtml';
-                    case 'ruler-cards':
-                        return 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT_RtkTz41WgEivLZztYfWXAfS_YzD_Rom7zjMN4EV3Xsni0N2PP51x5yExOmhG_LCKdTHZ3-3iRgLs/pubhtml';
-                    case 'rulebook':
-                        return 'https://docs.google.com/document/d/1aVDbZ5x0-0E4zC5tA7lKHqFFoerSVg3-WPBFFLS91L4/pub';
-                    case 'world-history':
-                        return 'https://docs.google.com/document/d/1T1_xoPAuhnsbEkztCb9V2dnNmNRr6GfpR5c2yG9Kgfg/pub';
-                    case 'set-info':
-                        return 'https://docs.google.com/document/d/1HqgKNItHJSxt1WbYrF0nA7h7_X-PDL_vbXG1MrUtWik/pub';
-                    default:
-                        return '';
-                }
-            }
-
-            function attachLinkListeners() {
-                const pageLinks = document.querySelectorAll('.page-link');
-                pageLinks.forEach(link => {
-                    link.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        const pageId = this.getAttribute('data-page');
-                        const iframeSrc = getIframeSrc(pageId);
-                        mainContent.innerHTML = `
-                            <div class="page-title">
-                                <a href="#" onclick="location.reload();">Kingdoms of Arcanon Game Data</a>
-                            </div>
-                            <div class="page-subtitle">
-                                <a href="charactercards" class="page-link">Character Cards</a>
-                                <a href="attackcards" class="page-link">Attack Cards</a>
-                                <a href="defensecards" class="page-link">Defense Cards</a>
-                                <a href="itemcards" class="page-link">Item Cards</a>
-                                <a href="resourcecards" class="page-link">Resource Cards</a>
-                                <a href="rulercards" class="page-link">Ruler Cards</a>
-                                <a href="rulebook" class="page-link">Rulebook</a>
-                                <a href="worldhistory" class="page-link">World History</a>
-                                <a href="setinfo" class="page-link">Set Info</a>
-                            </div>
-                            <iframe referrerpolicy="no-referrer-when-downgrade" src="${iframeSrc}" style="width: 100%; height: calc(100% - 80px); border: none;"></iframe>
-                        `;
-                        attachLinkListeners();
-                    });
-                });
-            }
         });
     </script>
 </body>
