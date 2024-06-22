@@ -3,102 +3,270 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Attack Cards</title>
+    <title>Attack Cards - Kingdoms of Arcanon</title>
     <style>
-        body, html {
+        body {
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            width: 100%;
-            height: 100%;
-            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
         }
-        .content {
+        .splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
+            background-color: #000;
+            color: #fff;
             display: flex;
             flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            transition: opacity 0.9s ease-out;
         }
-        .search-bar {
-            padding: 10px;
-            text-align: center;
+        .fade-to-black {
+            opacity: 0.9;
         }
-        .search-bar input {
-            padding: 10px;
-            width: 80%;
-            max-width: 600px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+        .fade-out {
+            opacity: 0;
+            z-index: -1;
         }
-        .iframe-container {
-            flex: 1;
-            width: 100%;
+        .show {
+            display: block !important;
         }
-        iframe {
+        .main-content {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
+            background-color: #fff;
+            transition: opacity 0.5s ease-in-out;
+            opacity: 0;
+            z-index: 100;
+        }
+        .page-title {
+            padding: 20px;
+            background-color: #333;
+            color: #fff;
+            font-size: 24px;
+            text-align: center;
+        }
+        .page-subtitle {
+            padding: 10px;
+            background-color: #444;
+            text-align: center;
+        }
+        .page-link {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 18px;
+        }
+        .page-link:hover {
+            text-decoration: underline;
+        }
+        .audio-player {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 1001;
+        }
+        .audio-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .control-button {
+            background-color: #ddd;
+            color: #000;
             border: none;
+            padding: 5px 10px;
+            margin: 0 5px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .control-button:hover {
+            background-color: #bbb;
         }
     </style>
 </head>
 <body>
-    <div class="content">
-        <div class="search-bar">
-            <input type="text" id="searchInput" placeholder="Search...">
-        </div>
-        <div class="iframe-container">
-            <iframe id="spreadsheet" referrerpolicy="no-referrer-when-downgrade" src="https://docs.google.com/spreadsheets/d/e/YOUR_GOOGLE_SHEETS_ID_FOR_ATTACK_CARDS/pubhtml?gid=0&single=true&widget=true&headers=false"></iframe>
-        </div>
-    </div>
-    <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Defense Cards</title>
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            font-family: Arial, sans-serif;
-        }
-        .content {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-        }
-        .search-bar {
-            padding: 10px;
-            text-align: center;
-        }
-        .search-bar input {
-            padding: 10px;
-            width: 80%;
-            max-width: 600px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        .iframe-container {
-            flex: 1;
-            width: 100%;
-        }
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-    </style>
-</head>
-<body>
-    <div class="content">
-        <div class="search-bar">
-            <input type="text" id="searchInput" placeholder="Search...">
-        </div>
-        <div class="iframe-container">
-            <iframe id="spreadsheet" referrerpolicy="no-referrer-when-downgrade" src="https://docs.google.com/spreadsheets/d/e/YOUR_GOOGLE_SHEETS_ID_FOR_DEFENSE_CARDS/pubhtml?gid=0&single=true&widget=true&headers=false"></iframe>
+    <div class="splash-screen" id="splash-screen">
+        <h1 style="font-size: 36px;"><a href="#" onclick="location.reload();">Attack Cards</a></h1>
+        <a href="#" class="page-link" data-page="index">Back to Main</a>
+        <div class="audio-player">
+            <audio id="audio-player" controls autoplay loop>
+                <source src="https://raw.githubusercontent.com/RealmCraftStudios/Kingdoms-of-Arcanon/main/WelcometoArcanon.wav" type="audio/wav">
+                Your browser does not support the audio element.
+            </audio>
+            <div class="audio-controls">
+                <button class="control-button" id="prevButton">Previous</button>
+                <button class="control-button" id="nextButton">Next</button>
+            </div>
         </div>
     </div>
+    <div class="main-content" id="main-content">
+        <div class="page-title">
+            <a href="#" onclick="location.reload();">Attack Cards</a>
+        </div>
+        <div class="page-subtitle">
+            <a href="#" class="page-link" data-page="character-cards">Character Cards</a>
+            <a href="#" class="page-link" data-page="defense-cards">Defense Cards</a>
+            <a href="#" class="page-link" data-page="item-cards">Item Cards</a>
+            <a href="#" class="page-link" data-page="resource-cards">Resource Cards</a>
+            <a href="#" class="page-link" data-page="ruler-cards">Ruler Cards</a>
+            <a href="#" class="page-link" data-page="rulebook">Rulebook</a>
+            <a href="#" class="page-link" data-page="world-history">World History</a>
+            <a href="#" class="page-link" data-page="set-info">Set Info</a>
+        </div>
+        <iframe referrerpolicy="no-referrer-when-downgrade" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vT9rFx02t1_zGvslDVs8c93eSvdoKx_UvHZrj9n1d6gdpb4rEBpbycmoCqwaPNisT3q31p4R_Gq6zXf/pubhtml?gid=0&single=true&widget=true&headers=false" style="width: 100%; height: calc(100% - 80px); border: none;"></iframe>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const splashScreen = document.getElementById('splash-screen');
+            const mainContent = document.getElementById('main-content');
+            const pageLinks = document.querySelectorAll('.page-link');
+            const audioPlayer = document.getElementById('audio-player');
+            const nextButton = document.getElementById('nextButton');
+            const prevButton = document.getElementById('prevButton');
+
+            let currentTrackIndex = 0;
+            const tracks = [
+                "https://raw.githubusercontent.com/RealmCraftStudios/Kingdoms-of-Arcanon/main/WelcometoArcanon.wav",
+                "https://raw.githubusercontent.com/RealmCraftStudios/Kingdoms-of-Arcanon/main/CreationofArcanon.wav",
+                "https://raw.githubusercontent.com/RealmCraftStudios/Kingdoms-of-Arcanon/main/ComingofDarnkess.wav",
+                "https://raw.githubusercontent.com/RealmCraftStudios/Kingdoms-of-Arcanon/main/TheNinePlagues.wav",
+                "https://raw.githubusercontent.com/RealmCraftStudios/Kingdoms-of-Arcanon/main/TheDarkTimes.wav",
+                "https://raw.githubusercontent.com/RealmCraftStudios/Kingdoms-of-Arcanon/main/GreatWarArcanon.wav"
+            ];
+
+            function playCurrentTrack() {
+                audioPlayer.src = tracks[currentTrackIndex];
+                audioPlayer.play();
+            }
+
+            nextButton.addEventListener('click', function() {
+                currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
+                playCurrentTrack();
+            });
+
+            prevButton.addEventListener('click', function() {
+                currentTrackIndex = (currentTrackIndex - 1 + tracks.length) % tracks.length;
+                playCurrentTrack();
+            });
+
+            playCurrentTrack();
+
+            audioPlayer.volume = 0.75;
+
+            function stopBackgroundMusic() {
+                audioPlayer.pause();
+                audioPlayer.currentTime = 0;
+            }
+
+            pageLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const pageId = this.getAttribute('data-page');
+                    const iframeSrc = getIframeSrc(pageId);
+                    splashScreen.classList.add('fade-to-black');
+                    setTimeout(() => {
+                        splashScreen.classList.add('fade-out');
+                        mainContent.classList.add('show');
+                        stopBackgroundMusic();
+                        mainContent.innerHTML = `
+                            <div class="page-title">
+                                <a href="#" onclick="location.reload();">Attack Cards</a>
+                            </div>
+                            <div class="page-subtitle">
+                                <a href="#" class="page-link" data-page="character-cards">Character Cards</a>
+                                <a href="#" class="page-link" data-page="defense-cards">Defense Cards</a>
+                                <a href="#" class="page-link" data-page="item-cards">Item Cards</a>
+                                <a href="#" class="page-link" data-page="resource-cards">Resource Cards</a>
+                                <a href="#" class="page-link" data-page="ruler-cards">Ruler Cards</a>
+                                <a href="#" class="page-link" data-page="rulebook">Rulebook</a>
+                                <a href="#" class="page-link" data-page="world-history">World History</a>
+                                <a href="#" class="page-link" data-page="set-info">Set Info</a>
+                            </div>
+                            <iframe referrerpolicy="no-referrer-when-downgrade" src="${iframeSrc}" style="width: 100%; height: calc(100% - 80px); border: none;"></iframe>
+                        `;
+                        attachLinkListeners();
+                    }, 900);
+                });
+            });
+
+            function getIframeSrc(pageId) {
+                switch (pageId) {
+                    case 'index':
+                        return 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS2HMrAvELJcP2eQWHyQIJgMlY7IvAXJLmoxTDllPjNM3HE5b3emG9Lkmmj_3E5G0ArbXwAT4yopTib/pubhtml?gid=0&single=true&widget=true&headers=false';
+                    case 'character-cards':
+                        return 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS2x7jF1zTy-9wYXOJshPn0RDShqPc1-Hkk1Dtl-VR58cRkR6c3BDMtkm1s5Z4cOJ8u5i-9VgOwD85B/pubhtml?gid=0&single=true&widget=true&headers=false';
+                    case 'defense-cards':
+                        return 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTBllSZ2ihO1HLrZkI_8t4wPKzL12g05M38dJZu8QkATq1fJ1am6DfXxud4oZupImOxqZ5UAVSYYw1j/pubhtml?gid=0&single=true&widget=true&headers=false';
+                    case 'item-cards':
+                        return 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQTmSPi4bfyHTgGOT7A9ujMXK1kXAR2E-tcJqSssUSkL9XZ1F8iErfTl3Ip7u4MkTPJ4e1Uaqizs4BK/pubhtml?gid=0&single=true&widget=true&headers=false';
+                    case 'resource-cards':
+                        return 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRc-lzNkl5W2Y-14zF8gB8oh3OB5qE_f2VxBJLO7raHD8b8y1fZ6dciTj7Bb2Ycuk9tYyASmwe2Vx2B/pubhtml?gid=0&single=true&widget=true&headers=false';
+                    case 'ruler-cards':
+                        return 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR9Z-ErNvX7nAedFySfI9DtyHjMqNidP5OFzGg3M9V79T0m1qZ1C12xIjA0OPnWtoKQy_FQmOYKJApO/pubhtml?gid=0&single=true&widget=true&headers=false';
+                    case 'rulebook':
+                        return 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS-O3OGpMvJirxFHZlwMMo7l77i4B14Iw3KcI0Q0yO5LyVleQ8hBRD9L-XGRwrj0WKYyZAL21etJh3w/pubhtml?gid=0&single=true&widget=true&headers=false';
+                    case 'world-history':
+                        return 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQh4FyLxI16pl5heKobQ6KZsZrYloTwJdYcimV5lCGP5VE8U9BoExg2A-u7u5b3uSfZLQNCm3-rE1qR/pubhtml?gid=0&single=true&widget=true&headers=false';
+                    case 'set-info':
+                        return 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSgqEYRdfFQKeWbGVD-9mXq4V0aAFKMfSf3eklYUuYLLueZ4OaygNqIvE2EFEthxq0TkRuhkVqHCC0A/pubhtml?gid=0&single=true&widget=true&headers=false';
+                    default:
+                        return '';
+                }
+            }
+
+            function attachLinkListeners() {
+                const pageLinks = document.querySelectorAll('.page-link');
+                pageLinks.forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const pageId = this.getAttribute('data-page');
+                        const iframeSrc = getIframeSrc(pageId);
+                        mainContent.innerHTML = `
+                            <div class="page-title">
+                                <a href="#" onclick="location.reload();">Attack Cards</a>
+                            </div>
+                            <div class="page-subtitle">
+                                <a href="#" class="page-link" data-page="character-cards">Character Cards</a>
+                                <a href="#" class="page-link" data-page="defense-cards">Defense Cards</a>
+                                <a href="#" class="page-link" data-page="item-cards">Item Cards</a>
+                                <a href="#" class="page-link" data-page="resource-cards">Resource Cards</a>
+                                <a href="#" class="page-link" data-page="ruler-cards">Ruler Cards</a>
+                                <a href="#" class="page-link" data-page="rulebook">Rulebook</a>
+                                <a href="#" class="page-link" data-page="world-history">World History</a>
+                                <a href="#" class="page-link" data-page="set-info">Set Info</a>
+                            </div>
+                            <iframe referrerpolicy="no-referrer-when-downgrade" src="${iframeSrc}" style="width: 100%; height: calc(100% - 80px); border: none;"></iframe>
+                        `;
+                        attachLinkListeners();
+                    });
+                });
+            }
+
+            attachLinkListeners();
+
+            setTimeout(() => {
+                splashScreen.classList.add('fade-to-black');
+                setTimeout(() => {
+                    splashScreen.classList.add('fade-out');
+                    mainContent.classList.add('show');
+                    stopBackgroundMusic();
+                }, 900);
+            }, 3000);
+        });
+    </script>
 </body>
 </html>
