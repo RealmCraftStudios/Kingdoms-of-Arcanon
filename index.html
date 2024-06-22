@@ -118,6 +118,18 @@
         .control-button:hover {
             background-color: #bbb;
         }
+        .search-container {
+            text-align: center;
+            margin: 10px auto;
+        }
+        .search-input {
+            padding: 8px;
+            width: 300px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
     </style>
 </head>
 <body>
@@ -204,7 +216,7 @@
                             <div class="page-title">
                                 <a href="#" onclick="location.reload();">Kingdoms of Arcanon Game Data</a>
                             </div>
-                            <div class="page-subtitle">
+                            <div class="page-subtitle" id="subtitle-${pageId}">
                                 <a href="#" class="page-link" data-page="character-cards">Character Cards</a>
                                 <a href="#" class="page-link" data-page="attack-cards">Attack Cards</a>
                                 <a href="#" class="page-link" data-page="defense-cards">Defense Cards</a>
@@ -218,30 +230,30 @@
                             <iframe referrerpolicy="no-referrer-when-downgrade" src="${iframeSrc}" style="width: 100%; height: calc(100% - 80px); border: none;"></iframe>
                         `;
                         attachLinkListeners();
-                    }, 900);
+                    }, 1000);
                 });
             });
 
             function getIframeSrc(pageId) {
                 switch (pageId) {
                     case 'character-cards':
-                        return 'https://realmcraftstudios.github.io/Kingdoms-of-Arcanon/CharacterCards/index.html';
+                        return 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS2HMrAvELJcPvaJ8-YvDGi5RhH2TdqKt29PiEuPH1c_ZpSeyP87dFPhU1r_s2I87WzphAlkfyuP79x/pubhtml?gid=0&single=true&widget=true&headers=false';
                     case 'attack-cards':
-                        return 'https://realmcraftstudios.github.io/Kingdoms-of-Arcanon/AttackCards/index.html';
+                        return 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS2HMrAvELJcPvaJ8-YvDGi5RhH2TdqKt29PiEuPH1c_ZpSeyP87dFPhU1r_s2I87WzphAlkfyuP79x/pubhtml?gid=589246038&single=true&widget=true&headers=false';
                     case 'defense-cards':
-                        return 'https://realmcraftstudios.github.io/Kingdoms-of-Arcanon/DefenseCards/index.html';
+                        return 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS2HMrAvELJcPvaJ8-YvDGi5RhH2TdqKt29PiEuPH1c_ZpSeyP87dFPhU1r_s2I87WzphAlkfyuP79x/pubhtml?gid=126896547&single=true&widget=true&headers=false';
                     case 'item-cards':
-                        return 'https://realmcraftstudios.github.io/Kingdoms-of-Arcanon/ItemCards/index.html';
+                        return 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS2HMrAvELJcPvaJ8-YvDGi5RhH2TdqKt29PiEuPH1c_ZpSeyP87dFPhU1r_s2I87WzphAlkfyuP79x/pubhtml?gid=400758552&single=true&widget=true&headers=false';
                     case 'resource-cards':
-                        return 'https://realmcraftstudios.github.io/Kingdoms-of-Arcanon/ResourceCards/index.html';
+                        return 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS2HMrAvELJcPvaJ8-YvDGi5RhH2TdqKt29PiEuPH1c_ZpSeyP87dFPhU1r_s2I87WzphAlkfyuP79x/pubhtml?gid=1512881124&single=true&widget=true&headers=false';
                     case 'ruler-cards':
-                        return 'https://realmcraftstudios.github.io/Kingdoms-of-Arcanon/RulerCards/index.html';
+                        return 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS2HMrAvELJcPvaJ8-YvDGi5RhH2TdqKt29PiEuPH1c_ZpSeyP87dFPhU1r_s2I87WzphAlkfyuP79x/pubhtml?gid=473596735&single=true&widget=true&headers=false';
                     case 'rulebook':
-                        return 'https://realmcraftstudios.github.io/Kingdoms-of-Arcanon/Rulebook/index.html';
+                        return 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS2HMrAvELJcPvaJ8-YvDGi5RhH2TdqKt29PiEuPH1c_ZpSeyP87dFPhU1r_s2I87WzphAlkfyuP79x/pubhtml?gid=1951998515&single=true&widget=true&headers=false';
                     case 'world-history':
-                        return 'https://realmcraftstudios.github.io/Kingdoms-of-Arcanon/WorldHistory/index.html';
+                        return 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS2HMrAvELJcPvaJ8-YvDGi5RhH2TdqKt29PiEuPH1c_ZpSeyP87dFPhU1r_s2I87WzphAlkfyuP79x/pubhtml?gid=325954026&single=true&widget=true&headers=false';
                     case 'set-info':
-                        return 'https://realmcraftstudios.github.io/Kingdoms-of-Arcanon/SetInfo/index.html';
+                        return 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS2HMrAvELJcPvaJ8-YvDGi5RhH2TdqKt29PiEuPH1c_ZpSeyP87dFPhU1r_s2I87WzphAlkfyuP79x/pubhtml?gid=1224327245&single=true&widget=true&headers=false';
                     default:
                         return '';
                 }
@@ -258,7 +270,7 @@
                             <div class="page-title">
                                 <a href="#" onclick="location.reload();">Kingdoms of Arcanon Game Data</a>
                             </div>
-                            <div class="page-subtitle">
+                            <div class="page-subtitle" id="subtitle-${pageId}">
                                 <a href="#" class="page-link" data-page="character-cards">Character Cards</a>
                                 <a href="#" class="page-link" data-page="attack-cards">Attack Cards</a>
                                 <a href="#" class="page-link" data-page="defense-cards">Defense Cards</a>
@@ -275,6 +287,35 @@
                     });
                 });
             }
+
+            attachLinkListeners();
+
+            // Search functionality
+            const searchInput = document.createElement('input');
+            searchInput.setAttribute('type', 'text');
+            searchInput.setAttribute('class', 'search-input');
+            searchInput.setAttribute('placeholder', 'Search...');
+            searchInput.addEventListener('input', function() {
+                const searchText = this.value.trim().toLowerCase();
+                const subtitles = document.querySelectorAll('.page-subtitle');
+                subtitles.forEach(subtitle => {
+                    const pageId = subtitle.id.split('-')[1];
+                    const links = subtitle.querySelectorAll('.page-link');
+                    links.forEach(link => {
+                        const linkText = link.textContent.trim().toLowerCase();
+                        if (linkText.includes(searchText)) {
+                            link.style.display = 'inline-block';
+                        } else {
+                            link.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            const searchContainer = document.createElement('div');
+            searchContainer.setAttribute('class', 'search-container');
+            searchContainer.appendChild(searchInput);
+            splashScreen.appendChild(searchContainer);
         });
     </script>
 </body>
