@@ -3,13 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kingdoms of Arcanon</title>
+    <title>Kingdoms of Arcanon Game Data</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        body, html {
             margin: 0;
             padding: 0;
-            background-color: #f0f0f0;
+            width: 100%;
+            height: 100%;
+            font-family: Arial, sans-serif;
+            background-color: #939799;
+            background-image: url('https://raw.githubusercontent.com/RealmCraftStudios/Kingdoms-of-Arcanon/main/index.jpg');
+            background-size: cover;
+            background-position: center;
+            color: #000;
         }
         .splash-screen {
             position: fixed;
@@ -17,117 +23,106 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: #000;
+            background-color: rgba(0, 0, 0, 0.5);
             color: #fff;
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
+            align-items: center;
+            flex-direction: column;
             z-index: 1000;
-            transition: opacity 0.9s ease-out;
+            opacity: 1;
+            transition: opacity 1s ease-out, background-color 1s ease-out, color 1s ease-out;
+            cursor: pointer;
         }
-        .fade-to-black {
-            opacity: 0.9;
+        .splash-screen.fade-to-black {
+            background-color: rgba(0, 0, 0, 0.7);
         }
-        .fade-out {
+        .splash-screen.fade-out {
             opacity: 0;
-            z-index: -1;
-        }
-        .show {
-            display: block !important;
+            visibility: hidden;
         }
         .main-content {
             display: none;
-            position: absolute;
-            top: 0;
-            left: 0;
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #000;
             width: 100%;
             height: 100%;
-            background-color: #fff;
-            transition: opacity 0.5s ease-in-out;
-            opacity: 0;
-            z-index: 100;
+            padding-top: 20px;
+            box-sizing: border-box;
+        }
+        .main-content.show {
+            display: block;
+        }
+        .main-content iframe {
+            width: 100%;
+            height: calc(100% - 80px);
+            border: none;
         }
         .page-title {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 10px;
             padding: 20px;
             background-color: #333;
             color: #fff;
-            font-size: 24px;
-            text-align: center;
         }
         .page-subtitle {
+            text-align: center;
+            font-size: 20px;
+            margin-bottom: 20px;
             padding: 10px;
             background-color: #444;
-            text-align: center;
         }
         .page-link {
-            color: #fff;
-            text-decoration: none;
-            margin: 0 10px;
             font-size: 18px;
+            text-decoration: none;
+            color: #000;
+            margin-bottom: 10px;
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 5px;
+            background-color: #ddd;
+            margin: 0 10px;
         }
         .page-link:hover {
             text-decoration: underline;
+            background-color: #bbb;
         }
-        .search-bar {
-            position: fixed;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #444;
-            padding: 10px;
-            z-index: 1001;
-            display: none;
-        }
-        .search-input {
-            width: 300px;
-            padding: 8px;
-            font-size: 16px;
-            border: none;
-            border-radius: 5px;
-        }
-        .search-button {
-            padding: 8px 15px;
-            font-size: 16px;
-            background-color: #666;
+        h1 a {
             color: #fff;
-            border: none;
-            border-radius: 5px;
+            text-decoration: none;
             cursor: pointer;
-            margin-left: 10px;
         }
-        .search-button:hover {
-            background-color: #555;
+        h1 a:hover {
+            text-decoration: underline;
+        }
+        .audio-player {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .audio-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .control-button {
+            background-color: #ddd;
+            color: #000;
+            border: none;
+            padding: 5px 10px;
+            margin: 0 5px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .control-button:hover {
+            background-color: #bbb;
         }
     </style>
 </head>
 <body>
     <div class="splash-screen" id="splash-screen">
-        <h1 style="font-size: 36px;"><a href="#" onclick="location.reload();">Kingdoms of Arcanon</a></h1>
-        <a href="#" class="page-link" data-page="character-cards">Character Cards</a>
-        <a href="#" class="page-link" data-page="attack-cards">Attack Cards</a>
-        <a href="#" class="page-link" data-page="defense-cards">Defense Cards</a>
-        <a href="#" class="page-link" data-page="item-cards">Item Cards</a>
-        <a href="#" class="page-link" data-page="resource-cards">Resource Cards</a>
-        <a href="#" class="page-link" data-page="ruler-cards">Ruler Cards</a>
-        <a href="#" class="page-link" data-page="rulebook">Rulebook</a>
-        <a href="#" class="page-link" data-page="world-history">World History</a>
-        <a href="#" class="page-link" data-page="set-info">Set Info</a>
-        <div class="search-bar" id="searchBar">
-            <input type="text" class="search-input" id="searchInput" placeholder="Search...">
-            <button class="search-button" id="searchButton">Search</button>
-        </div>
-        <div class="audio-player">
-            <audio id="audio-player" controls autoplay loop>
-                <source src="https://raw.githubusercontent.com/RealmCraftStudios/Kingdoms-of-Arcanon/main/WelcometoArcanon.wav" type="audio/wav">
-                Your browser does not support the audio element.
-            </audio>
-        </div>
-    </div>
-    <div class="main-content" id="main-content">
-        <div class="page-title">
-            <a href="#" onclick="location.reload();">Kingdoms of Arcanon</a>
-        </div>
+        <h1 style="font-size: 36px;"><a href="#" onclick="location.reload();">Kingdoms of Arcanon Game Data</a></h1>
         <div class="page-subtitle">
             <a href="#" class="page-link" data-page="character-cards">Character Cards</a>
             <a href="#" class="page-link" data-page="attack-cards">Attack Cards</a>
@@ -139,55 +134,56 @@
             <a href="#" class="page-link" data-page="world-history">World History</a>
             <a href="#" class="page-link" data-page="set-info">Set Info</a>
         </div>
-        <iframe referrerpolicy="no-referrer-when-downgrade" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vT9rFx02t1_zGvslDVs8c93eSvdoKx_UvHZrj9n1d6gdpb4rEBpbycmoCqwaPNisT3q31p4R_Gq6zXf/pubhtml?gid=0&single=true&widget=true&headers=false" style="width: 100%; height: calc(100% - 140px); border: none;"></iframe>
+        <div class="audio-player">
+            <audio id="audio-player" controls autoplay loop>
+                <source src="https://raw.githubusercontent.com/RealmCraftStudios/Kingdoms-of-Arcanon/main/WelcometoArcanon.wav" type="audio/wav">
+                Your browser does not support the audio element.
+            </audio>
+            <div class="audio-controls">
+                <button class="control-button" id="prevButton">Previous</button>
+                <button class="control-button" id="nextButton">Next</button>
+            </div>
+        </div>
+    </div>
+    <div class="main-content" id="main-content">
     </div>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const splashScreen = document.getElementById('splash-screen');
             const mainContent = document.getElementById('main-content');
             const pageLinks = document.querySelectorAll('.page-link');
-            const searchBar = document.getElementById('searchBar');
-            const searchInput = document.getElementById('searchInput');
-            const searchButton = document.getElementById('searchButton');
             const audioPlayer = document.getElementById('audio-player');
+            const nextButton = document.getElementById('nextButton');
+            const prevButton = document.getElementById('prevButton');
 
-            function showSearchBar() {
-                searchBar.style.display = 'block';
-            }
+            let currentTrackIndex = 0;
+            const tracks = [
+                "https://raw.githubusercontent.com/RealmCraftStudios/Kingdoms-of-Arcanon/main/WelcometoArcanon.wav",
+                "https://raw.githubusercontent.com/RealmCraftStudios/Kingdoms-of-Arcanon/main/CreationofArcanon.wav",
+                "https://raw.githubusercontent.com/RealmCraftStudios/Kingdoms-of-Arcanon/main/ComingofDarnkess.wav",
+                "https://raw.githubusercontent.com/RealmCraftStudios/Kingdoms-of-Arcanon/main/TheNinePlagues.wav",
+                "https://raw.githubusercontent.com/RealmCraftStudios/Kingdoms-of-Arcanon/main/TheDarkTimes.wav",
+                "https://raw.githubusercontent.com/RealmCraftStudios/Kingdoms-of-Arcanon/main/GreatWarArcanon.wav"
+            ];
 
-            function hideSearchBar() {
-                searchBar.style.display = 'none';
-            }
-
-            function searchPageContent() {
-                const searchTerm = searchInput.value.toLowerCase();
-                const iframe = document.querySelector('iframe');
-                const iframeContent = iframe.contentDocument || iframe.contentWindow.document;
-                const textNodes = Array.from(iframeContent.querySelectorAll('body *'));
-
-                textNodes.forEach(node => {
-                    const nodeText = node.innerText.toLowerCase();
-                    if (nodeText.includes(searchTerm)) {
-                        node.style.backgroundColor = '#ffa';
-                    } else {
-                        node.style.backgroundColor = '';
-                    }
-                });
-            }
-
-            searchButton.addEventListener('click', function() {
-                searchPageContent();
-            });
-
-            searchInput.addEventListener('keyup', function(event) {
-                if (event.key === 'Enter') {
-                    searchPageContent();
-                }
-            });
-
-            function playBackgroundMusic() {
+            function playCurrentTrack() {
+                audioPlayer.src = tracks[currentTrackIndex];
                 audioPlayer.play();
             }
+
+            nextButton.addEventListener('click', function() {
+                currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
+                playCurrentTrack();
+            });
+
+            prevButton.addEventListener('click', function() {
+                currentTrackIndex = (currentTrackIndex - 1 + tracks.length) % tracks.length;
+                playCurrentTrack();
+            });
+
+            playCurrentTrack();
+
+            audioPlayer.volume = 0.75;
 
             function stopBackgroundMusic() {
                 audioPlayer.pause();
@@ -203,18 +199,10 @@
                     setTimeout(() => {
                         splashScreen.classList.add('fade-out');
                         mainContent.classList.add('show');
-                        if (pageId === 'index') {
-                            searchBar.style.display = 'none';
-                            audioPlayer.style.display = 'block';
-                            playBackgroundMusic();
-                        } else {
-                            searchBar.style.display = 'block';
-                            audioPlayer.style.display = 'none';
-                            stopBackgroundMusic();
-                        }
+                        stopBackgroundMusic();
                         mainContent.innerHTML = `
                             <div class="page-title">
-                                <a href="#" onclick="location.reload();">Kingdoms of Arcanon</a>
+                                <a href="#" onclick="location.reload();">Kingdoms of Arcanon Game Data</a>
                             </div>
                             <div class="page-subtitle">
                                 <a href="#" class="page-link" data-page="character-cards">Character Cards</a>
@@ -227,7 +215,7 @@
                                 <a href="#" class="page-link" data-page="world-history">World History</a>
                                 <a href="#" class="page-link" data-page="set-info">Set Info</a>
                             </div>
-                            <iframe referrerpolicy="no-referrer-when-downgrade" src="${iframeSrc}" style="width: 100%; height: calc(100% - 140px); border: none;"></iframe>
+                            <iframe referrerpolicy="no-referrer-when-downgrade" src="${iframeSrc}" style="width: 100%; height: calc(100% - 80px); border: none;"></iframe>
                         `;
                         attachLinkListeners();
                     }, 900);
@@ -237,23 +225,23 @@
             function getIframeSrc(pageId) {
                 switch (pageId) {
                     case 'character-cards':
-                        return 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS2x7jF1zTy-9wYXOJshPn0RDShqPc1-Hkk1Dtl-VR58cRkR6c3BDMtkm1s5Z4cOJ8u5i-9VgOwD85B/pubhtml?gid=0&single=true&widget=true&headers=false';
+                        return 'https://realmcraftstudios.github.io/Kingdoms-of-Arcanon/CharacterCards/index.html';
                     case 'attack-cards':
-                        return 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQfK6J7MyRcZoVz3CSX0YQ6zsv3kIe23oDyZPSt2LwJxL2bFI2DfIRi7INxgUJrdofy3CnQFUGpknWY/pubhtml?gid=0&single=true&widget=true&headers=false';
+                        return 'https://realmcraftstudios.github.io/Kingdoms-of-Arcanon/AttackCards/index.html';
                     case 'defense-cards':
-                        return 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTBllSZ2ihO1HLrZkI_8t4wPKzL12g05M38dJZu8QkATq1fJ1am6DfXxud4oZupImOxqZ5UAVSYYw1j/pubhtml?gid=0&single=true&widget=true&headers=false';
+                        return 'https://realmcraftstudios.github.io/Kingdoms-of-Arcanon/DefenseCards/index.html';
                     case 'item-cards':
-                        return 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQTmSPi4bfyHTgGOT7A9ujMXK1kXAR2E-tcJqSssUSkL9XZ1F8iErfTl3Ip7u4MkTPJ4e1Uaqizs4BK/pubhtml?gid=0&single=true&widget=true&headers=false';
+                        return 'https://realmcraftstudios.github.io/Kingdoms-of-Arcanon/ItemCards/index.html';
                     case 'resource-cards':
-                        return 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRc-lzNkl5W2Y-14zF8gB8oh3OB5qE_f2VxBJLO7raHD8b8y1fZ6dciTj7Bb2Ycuk9tYyASmwe2Vx2B/pubhtml?gid=0&single=true&widget=true&headers=false';
+                        return 'https://realmcraftstudios.github.io/Kingdoms-of-Arcanon/ResourceCards/index.html';
                     case 'ruler-cards':
-                        return 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR9Z-ErNvX7nAedFySfI9DtyHjMqNidP5OFzGg3M9V79T0m1qZ1C12xIjA0OPnWtoKQy_FQmOYKJApO/pubhtml?gid=0&single=true&widget=true&headers=false';
+                        return 'https://realmcraftstudios.github.io/Kingdoms-of-Arcanon/RulerCards/index.html';
                     case 'rulebook':
-                        return 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS-O3OGpMvJirxFHZlwMMo7l77i4B14Iw3KcI0Q0yO5LyVleQ8hBRD9L-XGRwrj0WKYyZAL21etJh3w/pubhtml?gid=0&single=true&widget=true&headers=false';
+                        return 'https://realmcraftstudios.github.io/Kingdoms-of-Arcanon/Rulebook/index.html';
                     case 'world-history':
-                        return 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQh4FyLxI16pl5heKobQ6KZsZrYloTwJdYcimV5lCGP5VE8U9BoExg2A-u7u5b3uSfZLQNCm3-rE1qR/pubhtml?gid=0&single=true&widget=true&headers=false';
+                        return 'https://realmcraftstudios.github.io/Kingdoms-of-Arcanon/WorldHistory/index.html';
                     case 'set-info':
-                        return 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSgqEYRdfFQKeWbGVD-9mXq4V0aAFKMfSf3eklYUuYLLueZ4OaygNqIvE2EFEthxq0TkRuhkVqHCC0A/pubhtml?gid=0&single=true&widget=true&headers=false';
+                        return 'https://realmcraftstudios.github.io/Kingdoms-of-Arcanon/SetInfo/index.html';
                     default:
                         return '';
                 }
@@ -268,7 +256,7 @@
                         const iframeSrc = getIframeSrc(pageId);
                         mainContent.innerHTML = `
                             <div class="page-title">
-                                <a href="#" onclick="location.reload();">Kingdoms of Arcanon</a>
+                                <a href="#" onclick="location.reload();">Kingdoms of Arcanon Game Data</a>
                             </div>
                             <div class="page-subtitle">
                                 <a href="#" class="page-link" data-page="character-cards">Character Cards</a>
@@ -281,22 +269,12 @@
                                 <a href="#" class="page-link" data-page="world-history">World History</a>
                                 <a href="#" class="page-link" data-page="set-info">Set Info</a>
                             </div>
-                            <iframe referrerpolicy="no-referrer-when-downgrade" src="${iframeSrc}" style="width: 100%; height: calc(100% - 140px); border: none;"></iframe>
+                            <iframe referrerpolicy="no-referrer-when-downgrade" src="${iframeSrc}" style="width: 100%; height: calc(100% - 80px); border: none;"></iframe>
                         `;
                         attachLinkListeners();
                     });
                 });
             }
-
-            attachLinkListeners();
-
-            setTimeout(() => {
-                splashScreen.classList.add('fade-to-black');
-                setTimeout(() => {
-                    splashScreen.classList.add('fade-out');
-                    mainContent.classList.add('show');
-                }, 900);
-            }, 3000);
         });
     </script>
 </body>
