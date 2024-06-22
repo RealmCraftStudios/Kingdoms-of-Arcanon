@@ -18,6 +18,29 @@
             display: flex;
             flex-direction: column;
         }
+        .page-header {
+            background-color: #f2f2f2;
+            padding: 10px;
+            text-align: center;
+        }
+        .page-header a {
+            text-decoration: none;
+            color: #333;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .page-header a:hover {
+            text-decoration: underline;
+        }
+        .page-links {
+            padding: 10px;
+            text-align: center;
+        }
+        .page-links a {
+            text-decoration: none;
+            color: #333;
+            margin: 0 10px;
+        }
         .search-bar {
             padding: 10px;
             text-align: center;
@@ -42,21 +65,57 @@
 </head>
 <body>
     <div class="content">
+        <div class="page-header">
+            <a href="#" onclick="location.reload();">Kingdoms of Arcanon Game Data</a>
+        </div>
+        <div class="page-links">
+            <a href="#" class="page-link" data-page="character-cards">Character Cards</a>
+            <a href="#" class="page-link" data-page="attack-cards">Attack Cards</a>
+            <a href="#" class="page-link" data-page="defense-cards">Defense Cards</a>
+            <a href="#" class="page-link" data-page="item-cards">Item Cards</a>
+            <a href="#" class="page-link" data-page="resource-cards">Resource Cards</a>
+            <a href="#" class="page-link" data-page="ruler-cards">Ruler Cards</a>
+            <a href="#" class="page-link" data-page="rulebook">Rulebook</a>
+            <a href="#" class="page-link" data-page="world-history">World History</a>
+            <a href="#" class="page-link" data-page="set-info">Set Info</a>
+        </div>
         <div class="search-bar">
             <input type="text" id="searchInput" placeholder="Search...">
         </div>
         <div class="iframe-container">
-            <iframe id="spreadsheet" referrerpolicy="no-referrer-when-downgrade" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vS2HMrAvELJcPvaJ8-YvDGi5RhH2TdqKt29PiEuPH1c_ZpSeyP87dFPhU1r_s2I87WzphAlkfyuP79x/pubhtml?gid=0&single=true&widget=true&headers=false"></iframe>
+            <iframe id="spreadsheet" referrerpolicy="no-referrer-when-downgrade" src="https://docs.google.com/spreadsheets/d/e/YOUR_GOOGLE_SHEETS_ID_FOR_CHARACTER_CARDS/pubhtml?gid=0&single=true&widget=true&headers=false"></iframe>
         </div>
     </div>
+
     <script>
-        document.getElementById('searchInput').addEventListener('input', function(event) {
-            const searchValue = event.target.value.toLowerCase();
+        document.addEventListener("DOMContentLoaded", function() {
+            const searchInput = document.getElementById('searchInput');
             const iframe = document.getElementById('spreadsheet');
-            const src = iframe.src;
-            const baseSrc = "https://docs.google.com/spreadsheets/d/e/2PACX-1vS2HMrAvELJcPvaJ8-YvDGi5RhH2TdqKt29PiEuPH1c_ZpSeyP87dFPhU1r_s2I87WzphAlkfyuP79x/pubhtml?gid=0&single=true&widget=true&headers=false";
-            const newSrc = searchValue ? `${baseSrc}&search=${searchValue}` : baseSrc;
-            iframe.src = newSrc;
+
+            searchInput.addEventListener('input', function() {
+                const searchText = searchInput.value.toLowerCase();
+                const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+                const tableRows = iframeDocument.getElementsByTagName('tr');
+
+                for (let i = 0; i < tableRows.length; i++) {
+                    const tableData = tableRows[i].getElementsByTagName('td');
+                    let foundMatch = false;
+
+                    for (let j = 0; j < tableData.length; j++) {
+                        const cellText = tableData[j].innerText.toLowerCase();
+                        if (cellText.includes(searchText)) {
+                            foundMatch = true;
+                            break;
+                        }
+                    }
+
+                    if (foundMatch) {
+                        tableRows[i].style.display = "";
+                    } else {
+                        tableRows[i].style.display = "none";
+                    }
+                }
+            });
         });
     </script>
 </body>
