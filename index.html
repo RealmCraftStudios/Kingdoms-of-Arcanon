@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <meta charset="UTF-8">
@@ -7,21 +8,139 @@
     <title>Kingdoms of Arcanon</title>
     <style>
         /* Existing styles */
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: Perpetua, Serif;
+            background-color: #939799;
+            background-image: url('https://raw.githubusercontent.com/RealmCraftStudios/Kingdoms-of-Arcanon/main/SplashMap.jpg');
+            background-size: cover;
+            background-position: center;
+            color: #000;
+        }
+        .splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 1000;
+            opacity: 1;
+            transition: opacity 1s ease-out, background-color 1s ease-out, color 1s ease-out;
+            cursor: pointer;
+        }
+        .splash-screen.fade-to-black {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        .splash-screen.fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
+        .main-content {
+            display: none;
+            background-color: rgba(255, 255, 255, 0.5);
+            color: #000;
+            width: 100%;
+            height: 100%;
+            padding-top: 20px;
+            box-sizing: border-box;
+        }
+        .main-content.show {
+            display: block;
+        }
+        .main-content iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .page-title {
+            text-align: center;
+            color: #000;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .page-subtitle {
+            text-align: center;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        .page-link {
+            font-size: 22px;
+            text-decoration: none;
+            color: #000;
+            margin-bottom: 10px;
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 5px;
+            background-color: #ddd;
+        }
+        .page-link:hover {
+            text-decoration: underline;
+            background-color: #bbb;
+        }
+        h1 a {
+            color: #fff;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        h1 a:hover {
+            text-decoration: underline;
+        }
+        .audio-player {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .audio-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .control-button {
+            background-color: #ddd;
+            color: #000;
+            border: none;
+            padding: 5px 10px;
+            margin: 0 5px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .control-button:hover {
+            background-color: #bbb;
+        }
     </style>
 </head>
+
 <body>
     <div class="splash-screen" id="splash-screen">
         <h1 style="font-size: 36px;"><a href="#" onclick="location.reload();">Kingdoms of Arcanon</a></h1>
-        <a href="CharacterCards.html" class="page-link">Character Cards</a>
-        <a href="AttackCards.html" class="page-link">Attack Cards</a>
-        <a href="DefenseCards.html" class="page-link">Defense Cards</a>
-        <a href="ItemCards.html" class="page-link">Item Cards</a>
-        <a href="ResourceCards.html" class="page-link">Resource Cards</a>
-        <a href="RulerCards.html" class="page-link">Ruler Cards</a>
-        <a href="Rulebook.html" class="page-link">Rulebook</a>
-        <a href="Story.html" class="page-link">Story</a>
+        <a href="#" class="page-link" data-page="character-cards">Character Cards</a>
+        <a href="#" class="page-link" data-page="attack-cards">Attack Cards</a>
+        <a href="#" class="page-link" data-page="defense-cards">Defense Cards</a>
+        <a href="#" class="page-link" data-page="item-cards">Item Cards</a>
+        <a href="#" class="page-link" data-page="resource-cards">Resource Cards</a>
+        <a href="#" class="page-link" data-page="ruler-cards">Ruler Cards</a>
+        <a href="#" class="page-link" data-page="rulebook">Rulebook</a>
+        <a href="#" class="page-link" data-page="world-history">World History</a>
+        <a href="#" class="page-link" data-page="world-map">World Map</a>
+        <a href="#" class="page-link" data-page="set-info">Set Info</a>
         <div class="audio-player">
-            <!-- Existing audio player code -->
+            <audio id="audio-player" controls autoplay loop>
+                <source src="https://raw.githubusercontent.com/RealmCraftStudios/Kingdoms-of-Arcanon/main/WelcometoArcanon.wav" type="audio/wav">
+                Your browser does not support the audio element.
+            </audio>
+            <div class="audio-controls">
+                <button class="control-button" id="prevButton">Previous</button>
+                <button class="control-button" id="nextButton">Next</button>
+            </div>
         </div>
     </div>
     <div class="main-content" id="main-content">
@@ -72,16 +191,96 @@
             pageLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
-                    const pageUrl = this.getAttribute('href');
+                    const pageId = this.getAttribute('data-page');
+                    const iframeSrc = getIframeSrc(pageId);
                     splashScreen.classList.add('fade-to-black');
                     setTimeout(() => {
                         splashScreen.classList.add('fade-out');
                         mainContent.classList.add('show');
                         stopBackgroundMusic();
-                        window.location.href = pageUrl;
+                        mainContent.innerHTML = `
+                            <div class="page-title">
+                                <a href="#" onclick="location.reload();">Kingdoms of Arcanon</a>
+                            </div>
+                            <div class="page-subtitle">
+                                <a href="#" class="page-link" data-page="character-cards">Character Cards</a>
+                                <a href="#" class="page-link" data-page="attack-cards">Attack Cards</a>
+                                <a href="#" class="page-link" data-page="defense-cards">Defense Cards</a>
+                                <a href="#" class="page-link" data-page="item-cards">Item Cards</a>
+                                <a href="#" class="page-link" data-page="resource-cards">Resource Cards</a>
+                                <a href="#" class="page-link" data-page="ruler-cards">Ruler Cards</a>
+                                <a href="#" class="page-link" data-page="rulebook">Rulebook</a>
+                                <a href="#" class="page-link" data-page="world-history">World History</a>
+                                <a href="#" class="page-link" data-page="world-map">World Map</a>
+                                <a href="#" class="page-link" data-page="set-info">Set Info</a>
+                            </div>
+                            <iframe referrerpolicy="no-referrer-when-downgrade" src="${iframeSrc}" style="width: 100%; height: calc(100% - 80px); border: none;"></iframe>
+                        `;
+                        attachLinkListeners();
                     }, 900);
                 });
             });
+
+            function getIframeSrc(pageId) {
+                switch (pageId) {
+                    case 'character-cards':
+                        return 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS2HMrAvELJcPvaJ8-YvDGi5RhH2TdqKt29PiEuPH1c_ZpSeyP87dFPhU1r_s2I87WzphAlkfyuP79x/pubhtml?gid=0&single=true&widget=true&headers=false'; // Character Cards iframe source
+                    case 'attack-cards':
+                        return 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS2HMrAvELJcPvaJ8-YvDGi5RhH2TdqKt29PiEuPH1c_ZpSeyP87dFPhU1r_s2I87WzphAlkfyuP79x/pubhtml?gid=589246038&single=true&widget=true&headers=false'; // Attack Cards iframe source
+                    case 'defense-cards':
+                        return 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS2HMrAvELJcPvaJ8-YvDGi5RhH2TdqKt29PiEuPH1c_ZpSeyP87dFPhU1r_s2I87WzphAlkfyuP79x/pubhtml?gid=126896547&single=true'; // Defense Cards iframe source
+                    case 'item-cards':
+                        return 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS2HMrAvELJcPvaJ8-YvDGi5RhH2TdqKt29PiEuPH1c_ZpSeyP87dFPhU1r_s2I87WzphAlkfyuP79x/pubhtml?gid=400758552&single=true&widget=true&headers=false'; // Item Cards iframe source
+                    case 'resource-cards':
+                        return 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS2HMrAvELJcPvaJ8-YvDGi5RhH2TdqKt29PiEuPH1c_ZpSeyP87dFPhU1r_s2I87WzphAlkfyuP79x/pubhtml?gid=1512881124&single=true&widget=true&headers=false'; // Resource Cards iframe source
+                    case 'ruler-cards':
+                        return 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS2HMrAvELJcPvaJ8-YvDGi5RhH2TdqKt29PiEuPH1c_ZpSeyP87dFPhU1r_s2I87WzphAlkfyuP79x/pubhtml?gid=473596735&single=true&widget=true&headers=false'; // Ruler Cards iframe source
+                    case 'rulebook':
+                        return 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS2HMrAvELJcPvaJ8-YvDGi5RhH2TdqKt29PiEuPH1c_ZpSeyP87dFPhU1r_s2I87WzphAlkfyuP79x/pubhtml?gid=1951998515&single=true'; // Rulebook iframe source
+                    case 'world-history':
+                        return 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS2HMrAvELJcPvaJ8-YvDGi5RhH2TdqKt29PiEuPH1c_ZpSeyP87dFPhU1r_s2I87WzphAlkfyuP79x/pubhtml?gid=325954026&single=true'; // World History iframe source
+                    case 'world-map':
+                        return 'WorldMap.jpg'; // World Map iframe source
+                    case 'set-info':
+                        return 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS2HMrAvELJcPvaJ8-YvDGi5RhH2TdqKt29PiEuPH1c_ZpSeyP87dFPhU1r_s2I87WzphAlkfyuP79x/pubhtml?gid=1224327245&single=true'; // World History iframe source
+                    default:
+                        return ''; // Handle default case if needed
+                }
+            }
+
+            function attachLinkListeners() {
+                const newPageLinks = document.querySelectorAll('.page-subtitle .page-link');
+                newPageLinks.forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        stopBackgroundMusic();
+                        const pageId = this.getAttribute('data-page');
+                        const iframeSrc = getIframeSrc(pageId);
+
+                        const iframeHTML = `
+                            <div class="page-title">
+                                <a href="#" onclick="location.reload();">Kingdoms of Arcanon</a>
+                            </div>
+                            <div class="page-subtitle">
+                                <a href="#" class="page-link" data-page="character-cards">Character Cards</a>
+                                <a href="#" class="page-link" data-page="attack-cards">Attack Cards</a>
+                                <a href="#" class="page-link" data-page="defense-cards">Defense Cards</a>
+                                <a href="#" class="page-link" data-page="item-cards">Item Cards</a>
+                                <a href="#" class="page-link" data-page="resource-cards">Resource Cards</a>
+                                <a href="#" class="page-link" data-page="ruler-cards">Ruler Cards</a>
+                                <a href="#" class="page-link" data-page="rulebook">Rulebook</a>
+                                <a href="#" class="page-link" data-page="world-history">World History</a>
+                                <a href="#" class="page-link" data-page="world-map">World Map</a>
+                                <a href="#" class="page-link" data-page="set-info">Set Info</a>
+                            </div>
+                            <iframe referrerpolicy="no-referrer-when-downgrade" src="${iframeSrc}" style="width: 100%; height: calc(100% - 80px); border: none;"></iframe>
+                        `;
+
+                        mainContent.innerHTML = iframeHTML;
+                        attachLinkListeners(); // Attach listeners to new links
+                    });
+                });
+            }
 
             const reloadLink = document.querySelector('.page-title a');
             if (reloadLink) {
